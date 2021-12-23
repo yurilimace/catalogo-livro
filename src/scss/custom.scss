@@ -1,0 +1,11 @@
+$theme-colors: (
+  primary: #aa4465,
+  secondary: #ddfff7,
+  danger: tomato
+);
+
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+.offcanvas {
+  z-index: 0;
+}
