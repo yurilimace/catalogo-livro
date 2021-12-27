@@ -4,19 +4,25 @@ import { SideMenuContext } from '../../context/sidemenuContext';
 
 const SideMenu = () => {
   const sidebarContext = useContext(SideMenuContext);
-  console.log(sidebarContext, 'valor hooks');
+
+  if (!sidebarContext.show) {
+    return null;
+  }
   return (
-    <Offcanvas
-      show={sidebarContext.show}
-      onHide={() => {
-        return sidebarContext.setShow(false);
-      }}
-      backdrop={false}
-    >
-      <Offcanvas.Header closeButton>
-        <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-      </Offcanvas.Header>
-    </Offcanvas>
+    <div className="sidemenu">
+      <Offcanvas
+        className="sidemenu"
+        show={sidebarContext.show}
+        onHide={() => {
+          return sidebarContext.setShow(false);
+        }}
+        backdrop={false}
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+        </Offcanvas.Header>
+      </Offcanvas>
+    </div>
   );
 };
 

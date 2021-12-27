@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './scss/custom.scss';
@@ -9,14 +9,12 @@ import { SideMenuContextProvider } from './context/sidemenuContext';
 
 const App = () => {
   return (
-    <div className="App">
+    <div style={{ display: 'flex' }}>
       <SideMenuContextProvider>
-        <NavBar />
         <SideMenu />
-      </SideMenuContextProvider>
 
-      <h2> Novo App Catalogo Agora vai </h2>
-      <Button variant="primary"> Teste Botão </Button>
+        <NavBar />
+      </SideMenuContextProvider>
     </div>
   );
 };
