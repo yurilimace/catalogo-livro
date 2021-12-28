@@ -3,7 +3,7 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './scss/custom.scss';
-import NavBar from './components/Navbar';
+import PageTemplate from './components/pageTemplate';
 import SideMenu from './components/sidemenu';
 import { SideMenuContextProvider } from './context/sidemenuContext';
 
@@ -12,8 +12,9 @@ const App = () => {
     <div style={{ display: 'flex' }}>
       <SideMenuContextProvider>
         <SideMenu />
-
-        <NavBar />
+        <PageTemplate>
+          <h2> Conteudo da Pagina </h2>
+        </PageTemplate>
       </SideMenuContextProvider>
     </div>
   );
