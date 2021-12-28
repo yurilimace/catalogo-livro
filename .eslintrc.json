@@ -47,7 +47,7 @@
     ],
     "react/jsx-no-constructed-context-values": "off",
     "react/jsx-wrap-multilines": {
-      "declaration": 0
+      "declaration": "off"
     },
     "prettier/prettier": "error",
     "arrow-body-style": ["error", "always"],
