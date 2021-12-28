@@ -9,11 +9,11 @@ const PageTemplate: React.FC = ({ children }) => {
       className={
         sidebarContext.show === false
           ? 'w-100 d-flex flex-column'
-          : 'teste d-flex flex-column'
+          : 'navbarWidth d-flex flex-column'
       }
     >
       <NavBar />
-      {children}
+      <div className="p-3">{children}</div>
     </div>
   );
 };

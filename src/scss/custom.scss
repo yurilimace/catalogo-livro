@@ -14,8 +14,16 @@ $theme-colors: (
   z-index: 1;
 }
 
-.teste {
+.navbarWidth {
   width: 80%;
+}
+
+.navbarLogoCursor {
+  cursor: pointer;
+}
+
+.dropdown-toggle::after {
+  vertical-align: 0.03em;
 }
 
 .sidemenu {
