@@ -10,6 +10,7 @@ const NavBar = () => {
     <Navbar variant="dark" bg="primary">
       <Container fluid>
         <Navbar.Brand
+          data-cy="sidemenuController"
           className="navbarLogoCursor"
           onClick={() => {
             return sidebarContext.setShow(!sidebarContext.show);

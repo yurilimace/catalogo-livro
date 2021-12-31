@@ -8,9 +8,7 @@ type ContextSideMenuObject = {
 
 export const SideMenuContext = createContext<ContextSideMenuObject>({
   show: false,
-  setShow: (valor) => {
-    console.log('disparou', valor);
-  }
+  setShow: (valor) => {}
 });
 
 export const SideMenuContextProvider: React.FC = ({ children }) => {

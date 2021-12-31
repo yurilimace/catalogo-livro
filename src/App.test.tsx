@@ -1,9 +1,17 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { mount } from '@cypress/react';
+import PageTemplate from './components/pageTemplate';
+import { SideMenuContextProvider } from './context/sidemenuContext';
+import './scss/custom.scss';
+import HomePage from './pages/home';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+it('renders learn react link', () => {
+  mount(
+    <SideMenuContextProvider>
+      <PageTemplate>
+        <HomePage />
+      </PageTemplate>
+    </SideMenuContextProvider>
+  );
+  cy.get('[data-cy=sidemenuController]').click();
 });

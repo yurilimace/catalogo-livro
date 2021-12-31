@@ -1,20 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { FaUser } from 'react-icons/fa';
+import { Usuario } from '../../services/Login/loginServices';
 
 const LoginPage = () => {
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
+
+  const HandleChangeEmail = ({
+    target
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(target.value);
+  };
+
+  const HandleChangePassword = ({
+    target
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(target.value);
+  };
+
+  const HandleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log(email, password);
+  };
+
   return (
     <div className="d-flex vh-100">
-      <div className=" d-flex align-items-center justify-content-center w-50 bg-primary">
+      <div
+        data-cy="logo-section"
+        className=" d-flex align-items-center justify-content-center w-50 bg-primary"
+      >
         <FaUser color="#fff" size={100} />
       </div>
       <div className="w-50 d-flex align-items-center justify-content-center ">
-        <form className="w-50">
+        <form onSubmit={HandleSubmit} className="w-50">
           <Form.Group className="mb-3">
-            <Form.Control type="email" placeholder="E-mail" />
+            <Form.Control
+              data-cy="submit"
+              type="email"
+              placeholder="E-mail"
+              onChange={HandleChangeEmail}
+            />
           </Form.Group>
           <Form.Group>
-            <Form.Control type="password" placeholder="Senha" />
+            <Form.Control
+              data-cy="password"
+              type="password"
+              placeholder="Senha"
+              onChange={HandleChangePassword}
+            />
           </Form.Group>
           <Button
             variant="primary"
