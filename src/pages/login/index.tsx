@@ -1,11 +1,26 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { FaUser } from 'react-icons/fa';
-import { Usuario } from '../../services/Login/loginServices';
+import { QueryClient, useQuery } from 'react-query';
+import { Logar, LoginForm } from '../../services/Login/loginServices';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const form: LoginForm = { email, senha: password };
+  const { isLoading, error, data } = useQuery('login', async () => {
+    await Logar(form);
+  });
+
+  if (isLoading) {
+    console.log('carregando');
+  }
+  if (error) {
+    console.log('deu erro');
+  }
+  if (data) {
+    console.log(data);
+  }
 
   const HandleChangeEmail = ({
     target
@@ -21,6 +36,7 @@ const LoginPage = () => {
 
   const HandleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
     console.log(email, password);
   };
 

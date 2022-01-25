@@ -46,14 +46,12 @@
       }
     ],
     "react/jsx-no-constructed-context-values": "off",
-    "react/jsx-wrap-multilines": {
-      "declaration": "off"
-    },
+    "react/jsx-wrap-multilines": 0,
     "prettier/prettier": "error",
     "arrow-body-style": ["error", "always"],
     "arrow-parens": ["error", "always"],
     "comma-dangle": ["error", "never"],
-    "no-empty-function": { "allow": ["arrowFunctions"] },
+    "no-empty-function": ["error", { "allow": ["arrowFunctions"] }],
     "no-unused-vars": ["error", { "vars": "all", "args": "none" }],
     "object-curly-newline": [
       "error",

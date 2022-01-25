@@ -3,14 +3,19 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './scss/custom.scss';
+import { QueryClientProvider, QueryClient } from 'react-query';
 import Router from './routes';
 import { SideMenuContextProvider } from './context/sidemenuContext';
 
 const App = () => {
+  const queryClient = new QueryClient();
+
   return (
-    <SideMenuContextProvider>
-      <Router />
-    </SideMenuContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <SideMenuContextProvider>
+        <Router />
+      </SideMenuContextProvider>
+    </QueryClientProvider>
   );
 };
 
