@@ -8,7 +8,10 @@ import { PageContainer } from "./components/PageContainer/index";
 function App() {
   return (
     <div className="App">
-      <PageContainer />
+      <PageContainer>
+        {" "}
+        <h2> Page Content </h2>{" "}
+      </PageContainer>
     </div>
   );
 }

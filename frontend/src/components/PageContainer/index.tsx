@@ -1,12 +1,17 @@
 import React from "react";
-import { Navbar } from "../Navbar/styled";
 import { StyledNavbar } from "../Navbar";
 import { StyledContainer } from "./styled";
 
-export const PageContainer = () => {
+type Props = {
+  children: React.ReactNode;
+  title?: string;
+};
+
+export const PageContainer = ({ children, title }: Props) => {
   return (
     <StyledContainer>
       <StyledNavbar />
+      {children}
     </StyledContainer>
   );
 };
