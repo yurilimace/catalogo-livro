@@ -8,6 +8,7 @@ type Props = {
 };
 
 export const PageContainer = ({ children, title }: Props) => {
+  console.log("renderizou");
   return (
     <StyledContainer>
       <StyledNavbar />
