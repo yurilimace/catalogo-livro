@@ -9,6 +9,7 @@ export const StyledNavbar = () => {
   const [selectedMenu, setSelectedMenu] = React.useState("0");
   const [showDropdown, setShowDropdonw] = React.useState(false);
   const navigate = useNavigate();
+  const ref = React.useRef(null);
 
   const handleShowDropdown = () => {
     setShowDropdonw(!showDropdown);
@@ -18,7 +19,15 @@ export const StyledNavbar = () => {
   const handleNavigate = (menuPosition: string, path: string) => {
     setSelectedMenu(menuPosition);
     navigate(path);
+    setShowDropdonw(false);
   };
+
+  React.useEffect(() => {
+    document.addEventListener("mousedown", () => setShowDropdonw(false));
+    return () => {
+      document.removeEventListener("mousedown", () => setShowDropdonw(false));
+    };
+  }, [ref]);
 
   return (
     <Navbar active={selectedMenu}>
@@ -31,7 +40,12 @@ export const StyledNavbar = () => {
       <NavItem onClick={() => handleNavigate("3", "/menu2")}>
         <div> Pilha de Leitura </div>
       </NavItem>
-      <NavItem onClick={() => handleShowDropdown()}>
+      <NavItem
+        tabIndex={0}
+        onFocus={(e) => console.log(e.target)}
+        onClick={() => handleShowDropdown()}
+        ref={ref}
+      >
         Controlador
         {showDropdown && <DropdownMenu active={showDropdown} />}{" "}
       </NavItem>

@@ -3,13 +3,15 @@ import styled from "styled-components";
 export const Card = styled.div<{
   backgroundColor?: string;
   hasDivider?: boolean;
+  hasBoxShadow?: boolean;
 }>`
   flex-direction: column;
   width: fit-content;
   align-items: start;
   border-radius: 25px;
   background-color: ${(props) => props.backgroundColor ?? "#fff"};
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: ${(props) =>
+    props.hasBoxShadow && "rgba(0, 0, 0, 0.24) 0px 3px 8px"};
   > *:not(:last-child) {
     ${(props) => props.hasDivider && `border-bottom: 1px solid #bbb;`}
   }

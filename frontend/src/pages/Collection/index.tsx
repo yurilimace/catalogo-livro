@@ -7,6 +7,7 @@ import { Collectionexhibitor } from "./styled";
 import { PageContentContainer } from "../../components/PageContainer/styled";
 
 import teste from "../../assets/teste.jpg";
+import { CollectionGrid } from "../../components/CollectionGrid/styled";
 
 export const Collection = () => {
   const cardList = [
@@ -20,9 +21,9 @@ export const Collection = () => {
         <Form.Control type="text" size="lg" placeholder="Search"></Form.Control>
       </div>
       <Collectionexhibitor>
-        <Grid>
+        <CollectionGrid>
           {cardList.map((a) => (
-            <StyledCard backgroundColor="white" key={a}>
+            <StyledCard hasBoxShadow={true} backgroundColor="white" key={a}>
               <CardTitle>
                 <div>
                   <img style={{ borderRadius: "10px" }} src={teste} />
@@ -40,7 +41,7 @@ export const Collection = () => {
               </CardFooter>
             </StyledCard>
           ))}
-        </Grid>
+        </CollectionGrid>
       </Collectionexhibitor>
     </PageContentContainer>
   );

@@ -5,15 +5,21 @@ type Props = {
   children: React.ReactNode;
   backgroundColor?: string;
   hasDivider?: boolean;
+  hasBoxShadow?: boolean;
 };
 
 export const StyledCard = ({
   children,
   backgroundColor,
   hasDivider,
+  hasBoxShadow = true,
 }: Props) => {
   return (
-    <Card backgroundColor={backgroundColor} hasDivider={hasDivider}>
+    <Card
+      hasBoxShadow={hasBoxShadow}
+      backgroundColor={backgroundColor}
+      hasDivider={hasDivider}
+    >
       {children}
     </Card>
   );

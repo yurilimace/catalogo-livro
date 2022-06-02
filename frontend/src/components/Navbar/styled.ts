@@ -6,8 +6,8 @@ export const Navbar = styled.nav<{ active?: string }>`
   color: #fff;
   align-items: center;
 
-  & > :not(:first-child, :last-child) {
-  }
+  /* & > :not(:first-child, :last-child) {
+  } */
 
   & > :nth-child(${(props) => props.active}) {
     background-color: #1f3df6;
@@ -15,7 +15,20 @@ export const Navbar = styled.nav<{ active?: string }>`
   }
 
   & > :last-child {
-    margin-left: 70%;
+    @media (min-width: 425px) {
+      margin-left: 15%;
+    }
+
+    @media (min-width: 768px) {
+      margin-left: 50%;
+    }
+
+    @media (min-width: 1024px) {
+      margin-left: 60%;
+    }
+    @media (min-width: 1201px) {
+      margin-left: 70%;
+    }
   }
 `;
 
