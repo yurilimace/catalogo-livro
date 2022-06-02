@@ -1,6 +1,6 @@
 import React from "react";
 import { StyledNavbar } from "../Navbar";
-import { StyledContainer } from "./styled";
+import { StyledContainer, PageContentContainer } from "./styled";
 
 type Props = {
   children: React.ReactNode;
@@ -8,7 +8,6 @@ type Props = {
 };
 
 export const PageContainer = ({ children, title }: Props) => {
-  console.log("renderizou");
   return (
     <StyledContainer>
       <StyledNavbar />

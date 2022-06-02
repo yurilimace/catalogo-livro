@@ -1,23 +1,21 @@
 import styled from "styled-components";
 
 export const Navbar = styled.nav<{ active?: string }>`
-  border: 1px solid red;
-  height: 3rem;
-  background-color: red;
+  background-color: #6d81fe;
   display: flex;
+  color: #fff;
+  align-items: center;
 
   & > :not(:first-child, :last-child) {
-    border: 1px solid red;
-    margin-left: 20px;
   }
 
   & > :nth-child(${(props) => props.active}) {
-    background-color: green;
+    background-color: #1f3df6;
     opacity: 0.8;
   }
 
   & > :last-child {
-    margin-left: 75%;
+    margin-left: 70%;
   }
 `;
 
@@ -27,7 +25,7 @@ export const NavItem = styled.div`
   cursor: pointer;
 
   &:hover:not(:first-child) {
-    background-color: blue;
+    background-color: #4161fd;
     opacity: 0.8;
   }
 `;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar, NavItem } from "./styled";
-import { Grid } from "../Grid/styled";
+
 import { FaBook } from "react-icons/fa";
 import { DropdownMenu } from "../Dropdown";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -26,10 +26,10 @@ export const StyledNavbar = () => {
         <FaBook color="white" size={25} />
       </NavItem>
       <NavItem onClick={() => handleNavigate("2", "/menu1")} aria-hidden="true">
-        <div> Menu 1 </div>
+        <div> Coleção </div>
       </NavItem>
       <NavItem onClick={() => handleNavigate("3", "/menu2")}>
-        <div> Menu 2 </div>
+        <div> Pilha de Leitura </div>
       </NavItem>
       <NavItem onClick={() => handleShowDropdown()}>
         Controlador

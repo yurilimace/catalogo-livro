@@ -17,14 +17,15 @@ export const Dropdown = styled.div<{ active: string }>`
   display: flex;
   flex-direction: column;
   right: 1px;
-  top: 49px;
+  top: 44px;
   border: 1px solid red;
+  background-color: #4861fd;
   animation-name: ${AnimationDropdown};
   animation-duration: 0.5s;
 `;
 
 export const DropdownItem = styled.div`
   &:hover {
-    background-color: green;
+    background-color: #1f3df6;
   }
 `;
