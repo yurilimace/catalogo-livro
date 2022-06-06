@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Collectionexhibitor = styled.div`
   margin-top: 2rem;
   width: 95%;
+  height: 94%;
   overflow-y: auto;
 
   ::-webkit-scrollbar {

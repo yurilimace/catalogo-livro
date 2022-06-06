@@ -8,7 +8,7 @@ export const Card = styled.div<{
   flex-direction: column;
   width: fit-content;
   align-items: start;
-  border-radius: 25px;
+  border-radius: 24px;
   background-color: ${(props) => props.backgroundColor ?? "#fff"};
   box-shadow: ${(props) =>
     props.hasBoxShadow && "rgba(0, 0, 0, 0.24) 0px 3px 8px"};

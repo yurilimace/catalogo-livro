@@ -26,7 +26,7 @@ export const Collection = () => {
             <StyledCard hasBoxShadow={true} backgroundColor="white" key={a}>
               <CardTitle>
                 <div>
-                  <img style={{ borderRadius: "10px" }} src={teste} />
+                  <img style={{ borderRadius: "12px" }} src={teste} />
                 </div>
               </CardTitle>
               <CardBody>

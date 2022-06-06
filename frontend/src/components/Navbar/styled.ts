@@ -5,6 +5,7 @@ export const Navbar = styled.nav<{ active?: string }>`
   display: flex;
   color: #fff;
   align-items: center;
+  height: 6%;
 
   /* & > :not(:first-child, :last-child) {
   } */
@@ -36,6 +37,7 @@ export const NavItem = styled.div`
   padding: 10px;
   flex-shrink: 0;
   cursor: pointer;
+  height: 100%;
 
   &:hover:not(:first-child) {
     background-color: #4161fd;

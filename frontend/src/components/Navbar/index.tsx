@@ -3,17 +3,19 @@ import { Navbar, NavItem } from "./styled";
 
 import { FaBook } from "react-icons/fa";
 import { DropdownMenu } from "../Dropdown";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const StyledNavbar = () => {
   const [selectedMenu, setSelectedMenu] = React.useState("0");
   const [showDropdown, setShowDropdonw] = React.useState(false);
   const navigate = useNavigate();
+  //const location = useLocation();
+
   const ref = React.useRef(null);
 
   const handleShowDropdown = () => {
     setShowDropdonw(!showDropdown);
-    setSelectedMenu("4");
+    //setSelectedMenu("4");
   };
 
   const handleNavigate = (menuPosition: string, path: string) => {
@@ -22,12 +24,22 @@ export const StyledNavbar = () => {
     setShowDropdonw(false);
   };
 
+  const handleEventClick = (event: any) => {
+    if (ref.current && event.target !== ref.current) {
+      setShowDropdonw(false);
+    }
+  };
+
   React.useEffect(() => {
-    document.addEventListener("mousedown", () => setShowDropdonw(false));
+    document.addEventListener("mousedown", (e) => handleEventClick(e), false);
     return () => {
-      document.removeEventListener("mousedown", () => setShowDropdonw(false));
+      document.removeEventListener(
+        "mousedown",
+        (e) => handleEventClick(e),
+        false
+      );
     };
-  }, [ref]);
+  }, []);
 
   return (
     <Navbar active={selectedMenu}>
@@ -40,12 +52,7 @@ export const StyledNavbar = () => {
       <NavItem onClick={() => handleNavigate("3", "/menu2")}>
         <div> Pilha de Leitura </div>
       </NavItem>
-      <NavItem
-        tabIndex={0}
-        onFocus={(e) => console.log(e.target)}
-        onClick={() => handleShowDropdown()}
-        ref={ref}
-      >
+      <NavItem onClick={() => handleShowDropdown()} ref={ref}>
         Controlador
         {showDropdown && <DropdownMenu active={showDropdown} />}{" "}
       </NavItem>
