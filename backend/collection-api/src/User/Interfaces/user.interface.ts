@@ -1,0 +1,10 @@
+import { Collection } from 'src/Collection/Interfaces/collection.interface';
+
+export interface User {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  id: string;
+  collectionId?: Collection;
+}
