@@ -8,19 +8,7 @@ import { UserModule } from './User/user.modules';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: '.env',
-    }),
-    UserModule,
-    CollectionModule,
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-
-      useFactory: () => typeOrmConfig,
-    }),
-  ],
+  imports: [UserModule, CollectionModule, TypeOrmModule.forRoot(typeOrmConfig)],
   controllers: [AppController],
   providers: [AppService],
 })

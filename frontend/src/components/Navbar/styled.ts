@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import { FaChevronDown } from "react-icons/fa";
+import styled, { css, keyframes } from "styled-components";
 
 export const Navbar = styled.nav<{ active?: string }>`
   background-color: #6d81fe;
@@ -7,15 +8,17 @@ export const Navbar = styled.nav<{ active?: string }>`
   align-items: center;
   height: 6%;
 
-  /* & > :not(:first-child, :last-child) {
-  } */
-
   & > :nth-child(${(props) => props.active}) {
-    background-color: #1f3df6;
+    background-color: #6d81fe;
     opacity: 0.8;
   }
 
   & > :last-child {
+    background-color: #3d478a;
+    width: 8%;
+    display: flex;
+    align-items: center;
+
     @media (min-width: 425px) {
       margin-left: 15%;
     }
@@ -33,7 +36,7 @@ export const Navbar = styled.nav<{ active?: string }>`
   }
 `;
 
-export const NavItem = styled.div`
+export const NavItem = styled.div<{ isDropdownOpen?: boolean }>`
   padding: 10px;
   flex-shrink: 0;
   cursor: pointer;

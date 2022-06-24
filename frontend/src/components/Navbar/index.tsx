@@ -3,18 +3,22 @@ import { Navbar, NavItem } from "./styled";
 
 import { FaBook } from "react-icons/fa";
 import { DropdownMenu } from "../Dropdown";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { UserProfileNavbar } from "../UserProfileNavbar";
 
 export const StyledNavbar = () => {
   const [selectedMenu, setSelectedMenu] = React.useState("0");
   const [showDropdown, setShowDropdonw] = React.useState(false);
+
   const navigate = useNavigate();
   //const location = useLocation();
 
-  const ref = React.useRef(null);
+  const ref = React.useRef<HTMLDivElement>(null);
 
-  const handleShowDropdown = () => {
-    setShowDropdonw(!showDropdown);
+  const handleShowDropdown = (event: any) => {
+    setShowDropdonw(true);
+
     //setSelectedMenu("4");
   };
 
@@ -25,7 +29,7 @@ export const StyledNavbar = () => {
   };
 
   const handleEventClick = (event: any) => {
-    if (ref.current && event.target !== ref.current) {
+    if (ref.current && !ref.current.contains(event.target)) {
       setShowDropdonw(false);
     }
   };
@@ -52,8 +56,12 @@ export const StyledNavbar = () => {
       <NavItem onClick={() => handleNavigate("3", "/menu2")}>
         <div> Pilha de Leitura </div>
       </NavItem>
-      <NavItem onClick={() => handleShowDropdown()} ref={ref}>
-        Controlador
+      <NavItem
+        isDropdownOpen={showDropdown}
+        onClick={(event: any) => handleShowDropdown(event)}
+        ref={ref}
+      >
+        <UserProfileNavbar isOpen={showDropdown} />
         {showDropdown && <DropdownMenu active={showDropdown} />}{" "}
       </NavItem>
     </Navbar>

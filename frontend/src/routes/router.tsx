@@ -1,8 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { PageContainer } from "../components/PageContainer";
 import { Collection } from "../pages/Collection";
 import { Login } from "../pages/Login";
+import { userAuthenticateState } from "../store/UserAuthenticate/userAuthenticate.atom";
 
 export const RoutesWithPageContainer = () => {
   return (
@@ -11,7 +13,7 @@ export const RoutesWithPageContainer = () => {
         <Route path="/" element={<h2> Dashboard Inicial </h2>} />
         <Route path="/menu1" element={<Collection />} />
         <Route path="/menu2" element={<h2> Menu 2 </h2>} />
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="*" element={<Navigate to="/menu1" />} />
       </Routes>
     </PageContainer>
   );
@@ -27,9 +29,16 @@ export const RoutesWithoutPageContainer = () => {
 };
 
 export const CustomRouter = () => {
-  const [userHasToken, setUserHasToken] = React.useState(() =>
+  const [userHasToken, setUserHasToken] = useRecoilState(userAuthenticateState);
+  const [persistedToken] = React.useState<any>(() =>
     localStorage.getItem("token")
   );
+
+  React.useEffect(() => {
+    if (!userHasToken) {
+      setUserHasToken(persistedToken);
+    }
+  }, [userHasToken]);
 
   return (
     <BrowserRouter>
