@@ -1,5 +1,4 @@
-import { FaChevronDown } from "react-icons/fa";
-import styled, { css, keyframes } from "styled-components";
+import styled from "styled-components";
 
 export const Navbar = styled.nav<{ active?: string }>`
   background-color: #6d81fe;
@@ -9,12 +8,12 @@ export const Navbar = styled.nav<{ active?: string }>`
   height: 6%;
 
   & > :nth-child(${(props) => props.active}) {
-    background-color: #6d81fe;
+    background-color: #3d478a;
     opacity: 0.8;
   }
 
   & > :last-child {
-    background-color: #3d478a;
+    background-color: #6d81fe;
     width: 8%;
     display: flex;
     align-items: center;
