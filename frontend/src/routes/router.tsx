@@ -30,13 +30,12 @@ export const RoutesWithoutPageContainer = () => {
 
 export const CustomRouter = () => {
   const [userHasToken, setUserHasToken] = useRecoilState(userAuthenticateState);
-  const [persistedToken] = React.useState<any>(() =>
-    localStorage.getItem("token")
-  );
 
   React.useEffect(() => {
-    if (!userHasToken) {
-      setUserHasToken(persistedToken);
+    const updatedToken = localStorage.getItem("token");
+
+    if (!userHasToken && updatedToken) {
+      setUserHasToken(updatedToken);
     }
   }, [userHasToken]);
 

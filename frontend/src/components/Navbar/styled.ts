@@ -1,5 +1,4 @@
-import { FaChevronDown } from "react-icons/fa";
-import styled, { css, keyframes } from "styled-components";
+import styled from "styled-components";
 
 export const Navbar = styled.nav<{ active?: string }>`
   background-color: #6d81fe;

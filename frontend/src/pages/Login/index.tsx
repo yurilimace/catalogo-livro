@@ -3,15 +3,14 @@ import { LoginPageContainer, LoginFormContainer } from "./styled";
 import { FaBookReader } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+
 import { BaseServiceURL } from "../../service/config";
-import { useNavigate } from "react-router-dom";
+
 import { useRecoilState } from "recoil";
 import { userAuthenticateState } from "../../store/UserAuthenticate/userAuthenticate.atom";
 export const Login = () => {
   const [userToken, setUserToken] = useRecoilState(userAuthenticateState);
   const { register, handleSubmit } = useForm();
-  const navigate = useNavigate();
 
   const teste = async (data: any) => {
     const responseData: any = await BaseServiceURL.post(
