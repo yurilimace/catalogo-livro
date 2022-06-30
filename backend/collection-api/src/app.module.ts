@@ -5,10 +5,15 @@ import { AppService } from './app.service';
 import { CollectionModule } from './Collection/collection.modules';
 import { typeOrmConfig } from './Config/typeorm.config';
 import { UserModule } from './User/user.modules';
-import { ConfigModule } from '@nestjs/config';
+import { ProfileModule } from './Profile/profile.modules';
 
 @Module({
-  imports: [UserModule, CollectionModule, TypeOrmModule.forRoot(typeOrmConfig)],
+  imports: [
+    UserModule,
+    CollectionModule,
+    ProfileModule,
+    TypeOrmModule.forRoot(typeOrmConfig),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

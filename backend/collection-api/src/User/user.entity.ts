@@ -1,4 +1,5 @@
 import { Collection } from 'src/Collection/collection.entity';
+import { Profile } from 'src/Profile/profile.entity';
 import {
   Column,
   Entity,
@@ -17,6 +18,10 @@ export class User {
   @OneToOne(() => Collection, { cascade: true })
   @JoinColumn()
   collectionId: Collection;
+
+  @OneToOne(() => Profile)
+  @JoinColumn()
+  profile: Profile;
 
   @Column()
   firstName: string;
