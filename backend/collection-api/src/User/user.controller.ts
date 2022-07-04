@@ -9,12 +9,14 @@ import {
   Req,
   Res,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { CreateUserDTO } from './dto/create.user.dto';
 import { UserDTO } from './dto/user.dto';
 import { User } from './Interfaces/user.interface';
 import { UserService } from './user.service';
 
+@ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
