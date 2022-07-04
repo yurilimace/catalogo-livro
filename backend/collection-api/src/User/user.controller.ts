@@ -3,10 +3,9 @@ import {
   Controller,
   Get,
   HttpStatus,
-  Param,
   Post,
+  Put,
   Query,
-  Req,
   Res,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -45,6 +44,12 @@ export class UserController {
     newUser.password = b.password;
     this.userService.create(newUser);
     return newUser;
+  }
+
+  @Put('/updateUser')
+  updateUser(@Body() b: { firstName: string }) {
+    const response = this.userService.updateUser(b.firstName);
+    return response;
   }
 
   @Post('/authenticate')

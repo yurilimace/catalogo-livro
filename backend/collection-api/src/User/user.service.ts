@@ -8,10 +8,15 @@ import { User as UserInterface } from './Interfaces/user.interface';
 import { GenerateToken } from 'src/utils/generateToken';
 import { UserDTO } from './dto/user.dto';
 import { UserRepository } from './user.repository';
+import { ProfileService } from 'src/Profile/profile.service';
+import { ProfileEnum } from 'src/Enum/profileEnum';
 
 @Injectable()
 export class UserService {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private userRepository: UserRepository,
+    private profileService: ProfileService,
+  ) {}
 
   private readonly userList: UserInterface[] = [];
 
@@ -29,6 +34,13 @@ export class UserService {
   async getAll(): Promise<UserInterface[]> {
     const listUsers = await this.userRepository.findAll();
     return listUsers;
+  }
+
+  async updateUser(userParam: string): Promise<any> {
+    const p = await this.profileService.FindProfile(ProfileEnum.ADMIN);
+
+    const updateResponse = await this.userRepository.UpdateUser(userParam, p);
+    return updateResponse;
   }
 
   async authenticateUser(userParam: UserInterface): Promise<UserDTO> {
