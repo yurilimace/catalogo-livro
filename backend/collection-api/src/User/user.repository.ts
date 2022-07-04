@@ -17,11 +17,10 @@ export class UserRepository {
   }
 
   async UpdateUser(userParam: string, p: Profile) {
-    const resp = await this.userRepository.update(
-      { firstName: userParam },
-      { profile: p },
-    );
-    return resp.raw[0];
+    const resp = await this.userRepository
+      .update({ firstName: userParam }, { profile: p })
+      .then((response) => console.log(response));
+    return resp;
   }
 
   async FindUser(userParam: UserInterface) {
