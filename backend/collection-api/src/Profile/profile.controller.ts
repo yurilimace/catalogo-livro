@@ -9,13 +9,12 @@ import {
   Query,
   Res,
 } from '@nestjs/common';
-import { ApiBody, ApiProperty, ApiTags } from '@nestjs/swagger';
-import { response } from 'express';
-import { CreateUserDTO } from 'src/User/dto/create.user.dto';
+import { ApiTags } from '@nestjs/swagger';
+
 import { CreateProfileDTO } from './DTO/profile.dto';
-import { Profile as ProfileInterface } from './Interface/profile.interface';
+
 import { Profile } from './profile.entity';
-import { ProfileRepository } from './profile.repository';
+
 import { ProfileService } from './profile.service';
 
 @ApiTags('Profile')

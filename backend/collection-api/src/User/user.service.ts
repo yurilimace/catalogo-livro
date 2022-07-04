@@ -1,15 +1,14 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
-import { Collection } from 'src/Collection/collection.entity';
 import { PasswordHash } from 'src/utils/passwordHash';
-
-import { User as UserInterface } from './Interfaces/user.interface';
 
 import { GenerateToken } from 'src/utils/generateToken';
 import { UserDTO } from './dto/user.dto';
 import { UserRepository } from './user.repository';
 import { ProfileService } from 'src/Profile/profile.service';
 import { ProfileEnum } from 'src/Enum/profileEnum';
+import { CreateUserDTO } from './dto/create.user.dto';
+import { User } from './user.entity';
 
 @Injectable()
 export class UserService {
@@ -18,20 +17,22 @@ export class UserService {
     private profileService: ProfileService,
   ) {}
 
-  private readonly userList: UserInterface[] = [];
+  private readonly userList: User[] = [];
 
-  async create(userParam: UserInterface) {
-    const newCollection = new Collection();
+  async create(userParam: CreateUserDTO): Promise<User> {
+    const user = this.userRepository.CreateUser(userParam);
+    user.password = await PasswordHash(userParam.password);
 
-    userParam.collectionId = newCollection;
-    userParam.password = await PasswordHash(userParam.password);
+    if (userParam.isAdmin) {
+      const profile = await this.profileService.FindProfile('admin');
+      user.profile = profile;
+    }
+    return await this.userRepository.Save(user);
 
-    this.userRepository.Save(userParam);
-
-    this.userList.push(userParam);
+    this.userList.push(user);
   }
 
-  async getAll(): Promise<UserInterface[]> {
+  async getAll(): Promise<User[]> {
     const listUsers = await this.userRepository.findAll();
     return listUsers;
   }
@@ -43,7 +44,7 @@ export class UserService {
     return updateResponse;
   }
 
-  async authenticateUser(userParam: UserInterface): Promise<UserDTO> {
+  async authenticateUser(userParam: User): Promise<UserDTO> {
     const user = await this.userRepository.FindUser(userParam);
     const userToken = GenerateToken(user[0]);
     const userDTO = new UserDTO();

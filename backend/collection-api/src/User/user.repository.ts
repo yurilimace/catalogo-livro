@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { User as UserInterface } from './Interfaces/user.interface';
 import { Profile } from 'src/Profile/profile.entity';
+import { CreateUserDTO } from './dto/create.user.dto';
 
 @Injectable()
 export class UserRepository {
@@ -12,8 +13,13 @@ export class UserRepository {
     private userRepository: Repository<User>,
   ) {}
 
-  async Save(userParam: UserInterface) {
-    this.userRepository.save(userParam);
+  async Save(userParam: User): Promise<User> {
+    return await this.userRepository.save(userParam);
+  }
+
+  CreateUser(userCreateDTO: CreateUserDTO) {
+    const transaction = this.userRepository.create(userCreateDTO);
+    return transaction;
   }
 
   async UpdateUser(userParam: string, p: Profile) {
@@ -32,9 +38,7 @@ export class UserRepository {
   }
 
   async findAll(): Promise<User[]> {
-    const result = await this.userRepository.find({
-      relations: { collectionId: true, profile: true },
-    });
+    const result = await this.userRepository.find({});
     return await result;
   }
 }

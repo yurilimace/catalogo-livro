@@ -35,6 +35,17 @@ export class UserController {
     return userList;
   }
 
+  @Post('/create')
+  async Create(@Body() b: CreateUserDTO, @Res() response) {
+    const createdUser = await this.userService.create(b);
+    if (createdUser) {
+      response.status(HttpStatus.CREATED).json({
+        message: 'Usuário criado',
+        user: { name: createdUser.firstName, email: createdUser.email },
+      });
+    }
+  }
+
   @Post('/addUser')
   addUser(@Body() b: CreateUserDTO): User {
     const newUser: User = {} as User;
@@ -42,7 +53,7 @@ export class UserController {
     newUser.lastName = b.lastName;
     newUser.email = b.email;
     newUser.password = b.password;
-    this.userService.create(newUser);
+    // this.userService.create(newUser);
     return newUser;
   }
 
@@ -60,7 +71,8 @@ export class UserController {
     newUser.email = b.email;
     newUser.password = b.password;
 
-    const result: UserDTO = await this.userService.authenticateUser(newUser);
+    // const result: UserDTO = await this.userService.authenticateUser(newUser);
+    const result = false;
     if (!result) {
       response
         .status(HttpStatus.NOT_FOUND)

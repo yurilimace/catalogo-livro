@@ -15,10 +15,6 @@ export class User {
   @Generated('uuid')
   id: string;
 
-  @OneToOne(() => Collection, { cascade: true })
-  @JoinColumn()
-  collectionId: Collection;
-
   @OneToOne(() => Profile)
   @JoinColumn()
   profile: Profile;
