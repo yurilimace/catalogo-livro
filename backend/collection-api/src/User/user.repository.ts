@@ -13,6 +13,32 @@ export class UserRepository {
     private userRepository: Repository<User>,
   ) {}
 
+  async FindById(userId: string) {
+    try {
+      const user = await this.userRepository.findOne({
+        relations: { profile: true },
+        where: { id: userId },
+      });
+      return user;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async FindUser(userParam: CreateUserDTO) {
+    const queryResult = await this.userRepository.find({
+      where: { firstName: userParam.firstName, lastName: userParam.lastName },
+      relations: { profile: true },
+    });
+
+    return queryResult;
+  }
+
+  async findAll(): Promise<User[]> {
+    const result = await this.userRepository.find({});
+    return await result;
+  }
+
   async Save(userParam: User): Promise<User> {
     return await this.userRepository.save(userParam);
   }
@@ -22,23 +48,23 @@ export class UserRepository {
     return transaction;
   }
 
-  async UpdateUser(userParam: string, p: Profile) {
+  async UpdateUser(userParam: User) {
     const resp = await this.userRepository
-      .update({ firstName: userParam }, { profile: p })
-      .then((response) => console.log(response));
-    return resp;
+      .createQueryBuilder()
+      .update({ ...userParam })
+      .where({ id: userParam.id })
+      .returning('*')
+      .execute();
+    return resp.raw[0];
   }
 
-  async FindUser(userParam: UserInterface) {
-    const queryResult = await this.userRepository.find({
-      where: { firstName: userParam.firstName, lastName: userParam.lastName },
-    });
-
-    return queryResult;
-  }
-
-  async findAll(): Promise<User[]> {
-    const result = await this.userRepository.find({});
-    return await result;
+  async DeleteUser(userId: string): Promise<User> {
+    const resp = await this.userRepository
+      .createQueryBuilder()
+      .delete()
+      .where({ id: userId })
+      .returning('*')
+      .execute();
+    return resp.raw[0];
   }
 }

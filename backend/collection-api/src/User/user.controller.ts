@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   Post,
@@ -19,10 +20,7 @@ import { UserService } from './user.service';
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
-  @Get()
-  getUser(): string {
-    return 'ola controller de usuário';
-  }
+
   @Get('/teste')
   teste(@Query() q): string {
     console.log(q, '<------------- request');
@@ -35,9 +33,15 @@ export class UserController {
     return userList;
   }
 
+  @Get()
+  async GetUserById(@Query() q: { userId: string }): Promise<CreateUserDTO> {
+    const user = await this.userService.FindUserById(q.userId);
+    return user;
+  }
+
   @Post('/create')
   async Create(@Body() b: CreateUserDTO, @Res() response) {
-    const createdUser = await this.userService.create(b);
+    const createdUser = await this.userService.Create(b);
     if (createdUser) {
       response.status(HttpStatus.CREATED).json({
         message: 'Usuário criado',
@@ -46,33 +50,28 @@ export class UserController {
     }
   }
 
-  @Post('/addUser')
-  addUser(@Body() b: CreateUserDTO): User {
-    const newUser: User = {} as User;
-    newUser.firstName = b.firstName;
-    newUser.lastName = b.lastName;
-    newUser.email = b.email;
-    newUser.password = b.password;
-    // this.userService.create(newUser);
-    return newUser;
+  @Put('/update')
+  updateUser(@Body() b: CreateUserDTO) {
+    const response = this.userService.UpdateUser(b);
+    return response;
   }
 
-  @Put('/updateUser')
-  updateUser(@Body() b: { firstName: string }) {
-    const response = this.userService.updateUser(b.firstName);
+  @Delete('/delete')
+  DeleteUser(@Query() q: { id: string }) {
+    const response = this.userService.DeleteUser(q.id);
     return response;
   }
 
   @Post('/authenticate')
   async authenticate(@Res() response: Response, @Body() b: CreateUserDTO) {
-    const newUser: User = {} as User;
-    newUser.firstName = b.firstName;
-    newUser.lastName = b.lastName;
-    newUser.email = b.email;
-    newUser.password = b.password;
+    // const newUser: User = {} as User;
+    // newUser.firstName = b.firstName;
+    // newUser.lastName = b.lastName;
+    // newUser.email = b.email;
+    // newUser.password = b.password;
 
-    // const result: UserDTO = await this.userService.authenticateUser(newUser);
-    const result = false;
+    const result: UserDTO = await this.userService.authenticateUser(b);
+
     if (!result) {
       response
         .status(HttpStatus.NOT_FOUND)
