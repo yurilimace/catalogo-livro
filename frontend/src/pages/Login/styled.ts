@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 export const LoginPageContainer = styled.div`
   display: flex;
@@ -7,8 +7,9 @@ export const LoginPageContainer = styled.div`
   height: 100%;
   width: 100%;
 
-  & div {
+  & > div {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
@@ -36,8 +37,36 @@ export const LoginFormContainer = styled(Form)`
     margin-bottom: 15px;
   }
 
-  & > :last-child {
+  & > button {
     width: 65%;
     align-self: center;
+  }
+`;
+
+export const SignupSection = styled.div`
+  display: flex;
+  padding: 10px;
+  width: 100%;
+  width: 39%;
+  justify-content: center;
+`;
+
+export const SignupRouterButton = styled(Button)`
+  background-color: #f6f7fc;
+  color: #0d6efd;
+  border: none;
+  padding: 0;
+  margin-left: 10px;
+  display: block;
+  :hover {
+    background-color: transparent;
+    color: #0d6efd;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: 0;
+    box-shadow: none;
+    background-color: transparent;
+    color: #0d6efd;
   }
 `;
