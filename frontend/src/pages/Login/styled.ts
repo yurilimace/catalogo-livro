@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Button, Form } from "react-bootstrap";
 
+import error from "../../assets/Error.svg";
+
 export const LoginPageContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -40,6 +42,20 @@ export const LoginFormContainer = styled(Form)`
   & > button {
     width: 65%;
     align-self: center;
+  }
+`;
+
+export const LoginFormInput = styled(Form.Control)<{ hasErrors: boolean }>`
+  border-color: ${(props) => props.hasErrors && "red"};
+  background-image: ${(props) => props.hasErrors && ` url(${error})`};
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 25px;
+
+  &:focus {
+    border-color: ${(props) => props.hasErrors && "red"};
+    box-shadow: ${(props) =>
+      props.hasErrors && " 0 0 0 0.25rem rgb(253 13 13 / 25%)"};
   }
 `;
 

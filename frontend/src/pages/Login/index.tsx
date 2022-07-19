@@ -13,7 +13,9 @@ import { BaseServiceURL } from "../../service/config";
 
 import { useRecoilState } from "recoil";
 import { userAuthenticateState } from "../../store/UserAuthenticate/userAuthenticate.atom";
+import { useNavigate } from "react-router-dom";
 export const Login = () => {
+  const navigate = useNavigate();
   const [userToken, setUserToken] = useRecoilState(userAuthenticateState);
   const { register, handleSubmit } = useForm();
 
@@ -60,7 +62,10 @@ export const Login = () => {
             <span> Ainda não tem cadastro?</span>
           </div>
           <div>
-            <SignupRouterButton> Cadastre-se </SignupRouterButton>
+            <SignupRouterButton onClick={() => navigate("/register")}>
+              {" "}
+              Cadastre-se{" "}
+            </SignupRouterButton>
           </div>
         </SignupSection>
       </div>

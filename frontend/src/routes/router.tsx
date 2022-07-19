@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { PageContainer } from "../components/PageContainer";
 import { Collection } from "../pages/Collection";
 import { Login } from "../pages/Login";
+import { SignUpPage } from "../pages/Register";
 import { userAuthenticateState } from "../store/UserAuthenticate/userAuthenticate.atom";
 
 export const RoutesWithPageContainer = () => {
@@ -23,6 +24,7 @@ export const RoutesWithoutPageContainer = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<SignUpPage />} />
       <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );

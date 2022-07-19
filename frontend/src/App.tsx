@@ -8,9 +8,13 @@ import { CustomRouter } from "./routes/router";
 
 import { RecoilRoot } from "recoil";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <RecoilRoot>
+      <ToastContainer theme="colored" />
       <CustomRouter />
     </RecoilRoot>
   );
