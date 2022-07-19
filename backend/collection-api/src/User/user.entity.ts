@@ -5,7 +5,7 @@ import {
   Entity,
   Generated,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -15,7 +15,7 @@ export class User {
   @Generated('uuid')
   id: string;
 
-  @OneToOne(() => Profile)
+  @ManyToOne(() => Profile)
   @JoinColumn({ name: 'profile' })
   profile: Profile;
 
