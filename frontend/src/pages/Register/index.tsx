@@ -6,23 +6,9 @@ import {
 } from "../Login/styled";
 import { FaBookReader } from "react-icons/fa";
 import { Button } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { CreateUserForm, UserDTO } from "../../types/User";
+
 import { RequiredFieldWarning } from "../../components/RequiredFieldWarning";
 import { UseSignInForm } from "./hooks/useSignInForm";
-
-const schema = yup.object({
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  email: yup.string().required(),
-  password: yup.string().required(),
-  confirmPassword: yup
-    .string()
-    .required()
-    .oneOf([yup.ref("password")], "não bate"),
-});
 
 export const SignUpPage = () => {
   const { register, submit, errors, loading } = UseSignInForm();

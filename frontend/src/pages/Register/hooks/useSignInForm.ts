@@ -6,6 +6,7 @@ import { SignUpFormSchema } from "../../../schemas/User/userSchemas";
 import { toast } from "react-toastify";
 import { BaseServiceURL } from "../../../service/config";
 import { useNavigate } from "react-router-dom";
+
 export const UseSignInForm = () => {
   const navigate = useNavigate();
   const {
@@ -24,16 +25,29 @@ export const UseSignInForm = () => {
     const { firstName, lastName, email, password } = data;
     const userFormDTO: UserDTO = { firstName, lastName, email, password };
 
-    const response = await BaseServiceURL.post("/user/create", userFormDTO);
+    try {
+      const response = await BaseServiceURL.post("/user/create", userFormDTO);
 
-    if (response.status === 201) {
-      toast.success("cadastro efetuado com sucesso", {
+      if (response.status === 201) {
+        toast.success("cadastro efetuado com sucesso", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          onClose: () => {
+            setRequestLoading(false);
+            navigate("/login");
+          },
+        });
+      }
+    } catch (err: any) {
+      console.log(err);
+      toast.error(err.response.data.message, {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         onClose: () => {
+          console.log("disparou");
           setRequestLoading(false);
-          navigate("/login");
         },
       });
     }
