@@ -24,6 +24,7 @@ export const SignUpPage = () => {
             <LoginFormContainer.Label> Nome </LoginFormContainer.Label>
             <LoginFormInput
               {...register("firstName")}
+              disabled={loading}
               placeholder="Digite o Nome"
               hasErrors={errors.firstName}
             />
@@ -35,6 +36,7 @@ export const SignUpPage = () => {
             <LoginFormContainer.Label> Sobrenome </LoginFormContainer.Label>
             <LoginFormInput
               {...register("lastName")}
+              disabled={loading}
               placeholder="Digite o Nome"
               hasErrors={errors.lastName}
             />
@@ -46,6 +48,7 @@ export const SignUpPage = () => {
             <LoginFormContainer.Label> E-mail </LoginFormContainer.Label>
             <LoginFormInput
               {...register("email")}
+              disabled={loading}
               placeholder="Digite o email"
               hasErrors={errors.email}
             />
@@ -58,6 +61,7 @@ export const SignUpPage = () => {
             <LoginFormInput
               {...register("password")}
               type="password"
+              disabled={loading}
               placeholder="Digite o Nome"
               hasErrors={errors.password}
             />
@@ -70,6 +74,7 @@ export const SignUpPage = () => {
             <LoginFormInput
               {...register("confirmPassword")}
               type="password"
+              disabled={loading}
               placeholder="Confirme a senha"
               hasErrors={errors.confirmPassword}
             />
