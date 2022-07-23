@@ -38,6 +38,7 @@ export class UserRepository {
     const findUserEmail = await this.userRepository.count({
       where: { email: userEmail },
     });
+
     if (findUserEmail > 0) {
       return true;
     }

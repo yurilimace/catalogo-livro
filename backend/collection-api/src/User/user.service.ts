@@ -37,7 +37,7 @@ export class UserService {
 
   async Create(userParam: CreateUserDTO): Promise<User> {
     const userHasEmailRegistered =
-      this.userRepository.CheckRegistrationUserEmail(userParam.password);
+      await this.userRepository.CheckRegistrationUserEmail(userParam.email);
 
     if (userHasEmailRegistered) {
       throw {
@@ -77,7 +77,7 @@ export class UserService {
         excludeExtraneousValues: true,
       });
       userDTO.token = userToken;
-      console.log(userDTO);
+
       return userDTO;
     }
   }
