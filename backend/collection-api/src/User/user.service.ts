@@ -9,7 +9,7 @@ import { ProfileService } from 'src/Profile/profile.service';
 
 import { CreateUserDTO } from './dto/create.user.dto';
 import { User } from './user.entity';
-import { ProfileEnum } from 'src/Enum/profileEnum';
+
 import { plainToClass } from 'class-transformer';
 
 @Injectable()
@@ -36,6 +36,15 @@ export class UserService {
   }
 
   async Create(userParam: CreateUserDTO): Promise<User> {
+    const userHasEmailRegistered =
+      await this.userRepository.CheckRegistrationUserEmail(userParam.email);
+
+    if (userHasEmailRegistered) {
+      throw {
+        name: 'UserException',
+        message: 'Usuário já contém um conta cadastrada com esse email',
+      };
+    }
     const user = this.userRepository.CreateUser(userParam);
     const profile = await this.profileService.FindProfile('simple');
     user.password = await PasswordHash(userParam.password);
@@ -47,7 +56,6 @@ export class UserService {
   async UpdateUser(userParam: CreateUserDTO): Promise<CreateUserDTO> {
     const user = await this.userRepository.CreateUser(userParam);
     const updateResponse = await this.userRepository.UpdateUser(user);
-    console.log(updateResponse);
     const userDtoResponse = plainToClass(CreateUserDTO, updateResponse, {
       excludeExtraneousValues: true,
     });
@@ -68,7 +76,7 @@ export class UserService {
         excludeExtraneousValues: true,
       });
       userDTO.token = userToken;
-      console.log(userDTO);
+
       return userDTO;
     }
   }

@@ -1,4 +1,3 @@
-import { Collection } from 'src/Collection/collection.entity';
 import { Profile } from 'src/Profile/profile.entity';
 import {
   Column,
