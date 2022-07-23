@@ -56,7 +56,6 @@ export class UserService {
   async UpdateUser(userParam: CreateUserDTO): Promise<CreateUserDTO> {
     const user = await this.userRepository.CreateUser(userParam);
     const updateResponse = await this.userRepository.UpdateUser(user);
-    console.log(updateResponse);
     const userDtoResponse = plainToClass(CreateUserDTO, updateResponse, {
       excludeExtraneousValues: true,
     });
