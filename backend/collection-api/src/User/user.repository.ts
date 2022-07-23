@@ -34,6 +34,16 @@ export class UserRepository {
     return queryResult;
   }
 
+  async CheckRegistrationUserEmail(userEmail: string) {
+    const findUserEmail = await this.userRepository.count({
+      where: { email: userEmail },
+    });
+    if (findUserEmail > 0) {
+      return true;
+    }
+    return false;
+  }
+
   async findAll(): Promise<User[]> {
     const result = await this.userRepository.find({});
     return await result;

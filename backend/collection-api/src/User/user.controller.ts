@@ -41,12 +41,17 @@ export class UserController {
 
   @Post('/create')
   async Create(@Body() b: CreateUserDTO, @Res() response) {
-    const createdUser = await this.userService.Create(b);
-    if (createdUser) {
-      response.status(HttpStatus.CREATED).json({
-        message: 'Usuário criado',
-        user: { name: createdUser.firstName, email: createdUser.email },
-      });
+    try {
+      const createdUser = await this.userService.Create(b);
+      if (createdUser) {
+        response.status(HttpStatus.CREATED).json({
+          message: 'Usuário criado',
+          user: { name: createdUser.firstName, email: createdUser.email },
+        });
+      }
+    } catch (err) {
+      response.status(HttpStatus.CONFLICT).json(err);
+      console.log(err);
     }
   }
 
