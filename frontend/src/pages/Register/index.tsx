@@ -71,6 +71,7 @@ export const SignUpPage = () => {
             <LoginFormContainer.Label> Senha </LoginFormContainer.Label>
             <LoginFormInput
               {...register("password")}
+              type="password"
               placeholder="Digite o Nome"
               hasErrors={errors.password}
             />
@@ -82,7 +83,8 @@ export const SignUpPage = () => {
             <LoginFormContainer.Label>Confirmar senha</LoginFormContainer.Label>
             <LoginFormInput
               {...register("confirmPassword")}
-              placeholder="Digite o Nome"
+              type="password"
+              placeholder="Confirme a senha"
               hasErrors={errors.confirmPassword}
             />
             {errors.confirmPassword && (
