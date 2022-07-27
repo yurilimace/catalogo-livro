@@ -1,10 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { ValidationPipe } from '@nestjs/common';
+import { initializeApp } from 'firebase/app';
+
+import { firebaseConfig } from './Config/firebaseConfig';
+import { getStorage } from 'firebase/storage';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
+  initializeApp(firebaseConfig);
 
   const config = new DocumentBuilder()
     .setTitle('Manga Collection API')
