@@ -4,6 +4,6 @@ export const CreateNameUploadFileName = (
 ) => {
   const imageFormat = imageBase64.split(/(jpg|jpeg|png)/);
 
-  const uploadFileName = titleName.replace(/ /, '-') + '.' + imageFormat[1];
+  const uploadFileName = titleName.replace(/ /, '-') + '.jpg';
   return uploadFileName;
 };

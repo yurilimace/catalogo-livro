@@ -1,4 +1,4 @@
-import { Expose } from 'class-transformer';
+import { Expose, Exclude } from 'class-transformer';
 
 export class TitleDTO {
   @Expose()
@@ -9,6 +9,8 @@ export class TitleDTO {
   author: string;
   @Expose()
   publisher: string;
+  @Exclude()
+  cover: Express.Multer.File;
   @Expose()
-  cover: string;
+  coverURL: string;
 }
