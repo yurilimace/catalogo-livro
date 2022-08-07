@@ -5,6 +5,7 @@ import { PageContainer } from "../components/PageContainer";
 import { Collection } from "../pages/Collection";
 import { Login } from "../pages/Login";
 import { SignUpPage } from "../pages/Register";
+import { TitleShowcase } from "../pages/TitleShowcase";
 import { userAuthenticateState } from "../store/UserAuthenticate/userAuthenticate.atom";
 
 export const RoutesWithPageContainer = () => {
@@ -14,6 +15,7 @@ export const RoutesWithPageContainer = () => {
         <Route path="/" element={<h2> Dashboard Inicial </h2>} />
         <Route path="/menu1" element={<Collection />} />
         <Route path="/menu2" element={<h2> Menu 2 </h2>} />
+        <Route path="/menu3" element={<TitleShowcase />} />
         <Route path="*" element={<Navigate to="/menu1" />} />
       </Routes>
     </PageContainer>
