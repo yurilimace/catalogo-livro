@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { createQueryBuilder, Repository } from 'typeorm';
 import { TitleDTO } from './DTO/create.title.dto';
 import { Title } from './title.entity';
 
@@ -47,11 +47,23 @@ export class TitleRepository {
     return await this.titleRepository.save(param);
   }
 
-  Updatetile(param: any) {
-    console.log('update title');
+  async Updatetile(param: Title): Promise<Title> {
+    const updatedTitle = await this.titleRepository
+      .createQueryBuilder()
+      .update({ ...param })
+      .where({ id: param.id })
+      .returning('*')
+      .execute();
+    return updatedTitle.raw[0];
   }
 
-  DeleteTitle(param: any) {
-    console.log('delete title');
+  async DeleteTitle(titleId: string): Promise<Title> {
+    const deleteTitle = await this.titleRepository
+      .createQueryBuilder()
+      .delete()
+      .where({ id: titleId })
+      .returning('*')
+      .execute();
+    return deleteTitle.raw[0];
   }
 }

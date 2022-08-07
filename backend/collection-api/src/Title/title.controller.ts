@@ -1,10 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   Param,
   Post,
+  Put,
   Query,
   Res,
   UploadedFile,
@@ -54,5 +56,41 @@ export class TitleController {
         .json({ message: 'Titulo Adicionado', titulo: createdTitle });
     }
     return 'retorno do post';
+  }
+
+  @UseInterceptors(FileInterceptor('cover'))
+  @Put()
+  async UpdateTitle(
+    @Body() b: TitleDTO,
+    @UploadedFile() file: Express.Multer.File,
+    @Res() Response,
+  ) {
+    const updateTitle = await this.TitleService.UpdateTitle({
+      ...b,
+      cover: file,
+    });
+    if (updateTitle) {
+      return Response.status(HttpStatus.OK).json({
+        message: 'Titulo Atualizado',
+        title: updateTitle,
+      });
+    }
+    return Response.status(HttpStatus.BAD_REQUEST).json({
+      message: 'Erro ao Atualizar titulo',
+    });
+  }
+
+  @Delete(':id')
+  async DeleteTitle(@Param() id, @Res() response) {
+    const deletedTitle = await this.TitleService.DeleteTitle(id.id);
+    if (deletedTitle) {
+      return response.status(HttpStatus.OK).json({
+        message: 'Titulo Deletado',
+        title: deletedTitle,
+      });
+    }
+    return response.status(HttpStatus.BAD_REQUEST).json({
+      message: 'Erro ao Deletar titulo',
+    });
   }
 }

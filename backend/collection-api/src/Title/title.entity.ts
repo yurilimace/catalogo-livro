@@ -15,6 +15,6 @@ export class Title {
   @Column()
   publisher: string;
 
-  @Column()
+  @Column({ nullable: true })
   cover: string;
 }
