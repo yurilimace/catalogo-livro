@@ -34,6 +34,7 @@ export const Collection = () => {
                   <h4> tenjho tenge vol 16 </h4>
                 </div>
               </CardBody>
+
               <CardFooter>
                 <div>
                   <h6> Footer Teste </h6>

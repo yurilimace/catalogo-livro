@@ -9,6 +9,7 @@ export const Card = styled.div<{
   width: fit-content;
   align-items: start;
   height: 304px;
+  border-radius: 12px;
 
   background-color: ${(props) => props.backgroundColor ?? "#fff"};
   box-shadow: ${(props) =>
@@ -19,7 +20,7 @@ export const Card = styled.div<{
 
   transition: height 0.2s ease-in;
   :hover {
-    height: 375px;
+    height: 380px;
     > div {
       display: flex;
     }

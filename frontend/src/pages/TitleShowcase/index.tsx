@@ -1,4 +1,5 @@
 import React from "react";
+import { FaPlus } from "react-icons/fa";
 import { CollectionGrid } from "../../components/CollectionGrid/styled";
 import { PageContainer } from "../../components/PageContainer";
 import { StyledCard } from "../../components/Card";
@@ -7,6 +8,8 @@ import { Collectionexhibitor } from "../Collection/styled";
 import { Usetitle } from "./hooks/useTitle";
 import { PageContentContainer } from "../../components/PageContainer/styled";
 import { Button } from "react-bootstrap";
+import { StyledButton } from "../../components/Button/styled";
+import { Space } from "../../components/Space/styled";
 
 export const TitleShowcase = () => {
   const { getAllTitles, list } = Usetitle();
@@ -24,16 +27,19 @@ export const TitleShowcase = () => {
               >
                 <CardTitle>
                   <div>
-                    <img style={{ borderRadius: "12px" }} src={item.coverURL} />
+                    <img src={item.coverURL} />
                   </div>
                 </CardTitle>
                 <CardBody>
                   <div>
-                    <h4> {item.name} </h4>
+                    <span> {item.name} </span>
                   </div>
                 </CardBody>
+                <Space />
                 <CardFooter>
-                  <Button style={{ width: "100%" }}> Adicionar Titulo </Button>
+                  <StyledButton width={"80%"}>
+                    <FaPlus /> Adicionar Titulo
+                  </StyledButton>
                 </CardFooter>
               </StyledCard>
             ))}
