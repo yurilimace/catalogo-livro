@@ -5,11 +5,14 @@ import {
   StyledModal,
   AddModalFormInputsSection,
   AddModalFormButtonsSection,
+  AddModalFormInputFileSection,
 } from "./styled";
 
 import { PUBLISHEROPTIONS } from "../../constants";
 import { StyledButton } from "../Button/styled";
 import { FaPlus, FaSave } from "react-icons/fa";
+import { UploadImageContainer } from "../UploadImage/styled";
+import { UploadImage } from "../UploadImage";
 
 type AddTitleModalProps = {
   show: boolean;
@@ -25,7 +28,9 @@ export const AddTitleModal = ({ show, title, onHide }: AddTitleModalProps) => {
       </Modal.Header>
       <Modal.Body>
         <AddModalFormContainer>
-          <div>Upload image</div>
+          <AddModalFormInputFileSection>
+            <UploadImage />
+          </AddModalFormInputFileSection>
           <AddModalFormInputsSection>
             <Form>
               <Form.Label> Titulo </Form.Label>
