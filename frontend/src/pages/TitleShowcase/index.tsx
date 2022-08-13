@@ -10,12 +10,20 @@ import { PageContentContainer } from "../../components/PageContainer/styled";
 import { Button } from "react-bootstrap";
 import { StyledButton } from "../../components/Button/styled";
 import { Space } from "../../components/Space/styled";
+import { AddTitleModal } from "../../components/AddTitleModal";
 
 export const TitleShowcase = () => {
-  const { getAllTitles, list } = Usetitle();
-  console.log(list);
+  const { list } = Usetitle();
+  const [addModalShowController, setAddModalShowController] =
+    React.useState(false);
+
   return (
     <PageContentContainer>
+      <div style={{ alignSelf: "end" }}>
+        <StyledButton onClick={() => setAddModalShowController(true)}>
+          <FaPlus /> Adicionar Titulo
+        </StyledButton>
+      </div>
       <Collectionexhibitor>
         <CollectionGrid>
           {list.length > 0 &&
@@ -45,6 +53,11 @@ export const TitleShowcase = () => {
             ))}
         </CollectionGrid>
       </Collectionexhibitor>
+      <AddTitleModal
+        show={addModalShowController}
+        title={"Adicionar Titulo"}
+        onHide={() => setAddModalShowController(false)}
+      />
     </PageContentContainer>
   );
 };
