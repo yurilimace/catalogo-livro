@@ -5,15 +5,17 @@ import { PageContainer } from "../../components/PageContainer";
 import { StyledCard } from "../../components/Card";
 import { CardBody, CardFooter, CardTitle } from "../../components/Card/styled";
 import { Collectionexhibitor } from "../Collection/styled";
-import { Usetitle } from "./hooks/useTitle";
+import { UseTitleCRUD } from "./hooks/useTitleCRUD";
 import { PageContentContainer } from "../../components/PageContainer/styled";
 import { Button } from "react-bootstrap";
 import { StyledButton } from "../../components/Button/styled";
 import { Space } from "../../components/Space/styled";
 import { AddTitleModal } from "../../components/AddTitleModal";
+import { BaseServiceURL } from "../../service/config";
 
 export const TitleShowcase = () => {
-  const { list } = Usetitle();
+  const { list } = UseTitleCRUD();
+
   const [addModalShowController, setAddModalShowController] =
     React.useState(false);
 
@@ -34,8 +36,15 @@ export const TitleShowcase = () => {
                 key={item.id}
               >
                 <CardTitle>
-                  <div>
-                    <img src={item.coverURL} />
+                  <div style={{ width: "204px", height: "304px" }}>
+                    <img
+                      src={item.coverURL}
+                      style={{
+                        objectFit: "cover",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    />
                   </div>
                 </CardTitle>
                 <CardBody>

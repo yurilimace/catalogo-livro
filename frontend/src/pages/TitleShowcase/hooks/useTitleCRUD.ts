@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseServiceURL } from "../../../service/config";
 
-export const Usetitle = () => {
+export const UseTitleCRUD = () => {
   const [titleList, setTitleList] = React.useState([]);
 
   async function GetAllTitles() {
@@ -9,7 +9,12 @@ export const Usetitle = () => {
     return response.data;
   }
 
+  async function AddNewTitle(title: any) {
+    console.log(title, "<------- title");
+  }
+
   const teste = async () => {
+    console.log("aqui");
     const list = await GetAllTitles();
     setTitleList(list);
   };
@@ -19,7 +24,8 @@ export const Usetitle = () => {
   }, []);
 
   return {
-    getAllTitles: GetAllTitles(),
+    getAllTitles: GetAllTitles,
     list: titleList,
+    AddNewTitle: AddNewTitle,
   };
 };
