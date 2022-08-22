@@ -1,10 +1,10 @@
-import { Collection } from 'src/Collection/collection.entity';
+import { Profile } from 'src/Profile/profile.entity';
 import {
   Column,
   Entity,
   Generated,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -14,9 +14,9 @@ export class User {
   @Generated('uuid')
   id: string;
 
-  @OneToOne(() => Collection, { cascade: true })
-  @JoinColumn()
-  collectionId: Collection;
+  @ManyToOne(() => Profile)
+  @JoinColumn({ name: 'profile' })
+  profile: Profile;
 
   @Column()
   firstName: string;

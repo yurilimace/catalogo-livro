@@ -5,10 +5,23 @@ import { AppService } from './app.service';
 import { CollectionModule } from './Collection/collection.modules';
 import { typeOrmConfig } from './Config/typeorm.config';
 import { UserModule } from './User/user.modules';
+import { ProfileModule } from './Profile/profile.modules';
+import { TitleModule } from './Title/title.modules';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [UserModule, CollectionModule, TypeOrmModule.forRoot(typeOrmConfig)],
+  imports: [
+    UserModule,
+    CollectionModule,
+    ProfileModule,
+    TitleModule,
+    TypeOrmModule.forRoot(typeOrmConfig),
+    ConfigModule.forRoot({
+      envFilePath:
+        process.env.NODE_ENV === 'Development' ? '.env' : '.env.development',
+      isGlobal: true,
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

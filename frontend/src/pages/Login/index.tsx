@@ -1,17 +1,23 @@
 import React from "react";
-import { LoginPageContainer, LoginFormContainer } from "./styled";
+import {
+  LoginPageContainer,
+  LoginFormContainer,
+  SignupSection,
+  SignupRouterButton,
+} from "./styled";
 import { FaBookReader } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+
 import { BaseServiceURL } from "../../service/config";
-import { useNavigate } from "react-router-dom";
+
 import { useRecoilState } from "recoil";
 import { userAuthenticateState } from "../../store/UserAuthenticate/userAuthenticate.atom";
+import { useNavigate } from "react-router-dom";
 export const Login = () => {
+  const navigate = useNavigate();
   const [userToken, setUserToken] = useRecoilState(userAuthenticateState);
   const { register, handleSubmit } = useForm();
-  const navigate = useNavigate();
 
   const teste = async (data: any) => {
     const responseData: any = await BaseServiceURL.post(
@@ -51,6 +57,17 @@ export const Login = () => {
             Submit
           </Button>
         </LoginFormContainer>
+        <SignupSection>
+          <div>
+            <span> Ainda não tem cadastro?</span>
+          </div>
+          <div>
+            <SignupRouterButton onClick={() => navigate("/register")}>
+              {" "}
+              Cadastre-se{" "}
+            </SignupRouterButton>
+          </div>
+        </SignupSection>
       </div>
     </LoginPageContainer>
   );

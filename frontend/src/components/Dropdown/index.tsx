@@ -6,8 +6,8 @@ import { Dropdown, DropdownItem } from "./styled";
 export const DropdownMenu = ({ active }: any) => {
   const menu = ["Meus dados", "Sair"];
   const [userHasToken, setUserHasToken] = useRecoilState(userAuthenticateState);
-  const Logout = async () => {
-    await localStorage.clear();
+  const Logout = () => {
+    localStorage.clear();
     setUserHasToken(null);
   };
 
