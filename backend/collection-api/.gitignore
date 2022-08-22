@@ -26,6 +26,8 @@ lerna-debug.log*
 .project
 .classpath
 .env
+.env.development
+.env.production
 .c9/
 *.launch
 .settings/
