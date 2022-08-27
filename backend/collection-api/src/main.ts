@@ -10,8 +10,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   initializeApp(firebaseConfig);
 
-  console.log(process.env.PORT);
-
   const config = new DocumentBuilder()
     .setTitle('Manga Collection API')
     .setDescription('Manga Collection api routes')

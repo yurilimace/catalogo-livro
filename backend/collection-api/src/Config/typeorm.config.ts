@@ -3,12 +3,8 @@ import { config } from 'dotenv';
 
 config({
   path:
-    process.env.NODE_ENV === 'Development'
-      ? '.env.development'
-      : '.env.production',
+    process.env.NODE_ENV.toString() == 'Development' ? '.env.development' : '',
 });
-
-console.log(process.env.DATABASE_HOST);
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
