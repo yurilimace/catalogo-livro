@@ -1,17 +1,22 @@
 import React from "react";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import { CollectionGrid } from "../../components/CollectionGrid/styled";
-import { PageContainer } from "../../components/PageContainer";
+
 import { StyledCard } from "../../components/Card";
 import { CardBody, CardFooter, CardTitle } from "../../components/Card/styled";
 import { Collectionexhibitor } from "../Collection/styled";
 import { UseTitleCRUD } from "./hooks/useTitleCRUD";
 import { PageContentContainer } from "../../components/PageContainer/styled";
-import { Button } from "react-bootstrap";
-import { StyledButton } from "../../components/Button/styled";
+
+import { RoundedButton, StyledButton } from "../../components/Button/styled";
 import { Space } from "../../components/Space/styled";
 import { AddTitleModal } from "../../components/AddTitleModal";
-import { BaseServiceURL } from "../../service/config";
+
+import {
+  ImageActions,
+  ImageContainer,
+} from "../../components/ImageContainer/styled";
+import { Button } from "react-bootstrap";
 
 export const TitleShowcase = () => {
   const { list } = UseTitleCRUD();
@@ -36,7 +41,15 @@ export const TitleShowcase = () => {
                 key={item.id}
               >
                 <CardTitle>
-                  <div style={{ width: "204px", height: "304px" }}>
+                  <ImageContainer>
+                    <ImageActions>
+                      <RoundedButton bgColor={"black"}>
+                        <FaEdit size={20} color="white" />
+                      </RoundedButton>
+                      <RoundedButton bgColor={"black"}>
+                        <FaTrash size={20} color="white" />
+                      </RoundedButton>
+                    </ImageActions>
                     <img
                       src={item.coverURL}
                       style={{
@@ -45,7 +58,7 @@ export const TitleShowcase = () => {
                         height: "100%",
                       }}
                     />
-                  </div>
+                  </ImageContainer>
                 </CardTitle>
                 <CardBody>
                   <div>
