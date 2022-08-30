@@ -17,11 +17,15 @@ import {
   ImageContainer,
 } from "../../components/ImageContainer/styled";
 import { Button } from "react-bootstrap";
+import { Dialog } from "../../components/Dialog";
 
 export const TitleShowcase = () => {
   const { list } = UseTitleCRUD();
 
   const [addModalShowController, setAddModalShowController] =
+    React.useState(false);
+
+  const [deleteDialogController, setDeleteDialogController] =
     React.useState(false);
 
   return (
@@ -43,11 +47,17 @@ export const TitleShowcase = () => {
                 <CardTitle>
                   <ImageContainer>
                     <ImageActions>
-                      <RoundedButton bgColor={"black"}>
-                        <FaEdit size={20} color="white" />
+                      <RoundedButton
+                        onClick={() => setAddModalShowController(true)}
+                        bgColor={"black"}
+                      >
+                        <FaEdit size={15} color="white" />
                       </RoundedButton>
-                      <RoundedButton bgColor={"black"}>
-                        <FaTrash size={20} color="white" />
+                      <RoundedButton
+                        onClick={() => setDeleteDialogController(true)}
+                        bgColor={"black"}
+                      >
+                        <FaTrash size={15} color="white" />
                       </RoundedButton>
                     </ImageActions>
                     <img
@@ -79,6 +89,14 @@ export const TitleShowcase = () => {
         show={addModalShowController}
         title={"Adicionar Titulo"}
         onHide={() => setAddModalShowController(false)}
+      />
+
+      <Dialog
+        message="teste"
+        show={deleteDialogController}
+        type="Action"
+        action={() => console.log("teste")}
+        dismiss={() => setDeleteDialogController(false)}
       />
     </PageContentContainer>
   );
