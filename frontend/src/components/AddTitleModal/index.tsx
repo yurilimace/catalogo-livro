@@ -11,35 +11,46 @@ import {
 import { PUBLISHEROPTIONS } from "../../constants";
 import { StyledButton } from "../Button/styled";
 import { FaPlus, FaSave } from "react-icons/fa";
-import { UploadImageContainer } from "../UploadImage/styled";
+
 import { UploadImage } from "../UploadImage";
-import { UseTitleCRUD } from "../../pages/TitleShowcase/hooks/useTitleCRUD";
+
 import { useForm, FormProvider } from "react-hook-form";
 import { TitleDTO } from "../../types/Title";
-import { BaseServiceURL } from "../../service/config";
+
+import { useRecoilValue } from "recoil";
+import { TitleAtom } from "../../store/Title/title.atom";
 
 type AddTitleModalProps = {
   show: boolean;
   title: string;
+  loading?: boolean;
+  Submit: (data: TitleDTO, dialogController: () => void) => void;
   onHide: () => void;
 };
 
-export const AddTitleModal = ({ show, title, onHide }: AddTitleModalProps) => {
-  // const { list, AddNewTitle } = UseTitleCRUD();
+export const AddTitleModal = ({
+  show,
+  title,
+  onHide,
+  loading,
+  Submit,
+}: AddTitleModalProps) => {
+  const selectedTitle = useRecoilValue(TitleAtom);
+  const { name, publisher, author, id, coverUrl } = selectedTitle;
   const { register, handleSubmit, ...methods } = useForm<TitleDTO>();
 
-  const submit = async (data: TitleDTO) => {
-    const response = await BaseServiceURL.post("title", data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+  React.useEffect(() => {
+    if (show) {
+      methods.reset({ name: name, publisher: publisher, author: author });
+    }
+  }, [show]);
 
-    console.log(response.data);
+  const submit = async (data: TitleDTO) => {
+    Submit(data, () => onHide());
   };
 
   return (
-    <StyledModal show={show} onHide={onHide} backdrop="static">
+    <StyledModal show={show} onHide={() => onHide()} backdrop="static">
       <Modal.Header closeButton>
         <Modal.Title> Adicionar novo titulo ao acervo </Modal.Title>
       </Modal.Header>
@@ -88,10 +99,21 @@ export const AddTitleModal = ({ show, title, onHide }: AddTitleModalProps) => {
       </Modal.Body>
       <Modal.Footer>
         <AddModalFormButtonsSection>
-          <StyledButton form="addTitleForm" type="submit" width={"20%"}>
-            <FaSave /> Salvar
+          <StyledButton
+            disabled={loading}
+            form="addTitleForm"
+            type="submit"
+            width={"30%"}
+          >
+            {loading ? (
+              "...Carregando"
+            ) : (
+              <>
+                <FaSave /> Salvar
+              </>
+            )}
           </StyledButton>
-          <StyledButton width={"23%"} variant="danger">
+          <StyledButton disabled={loading} width={"23%"} variant="danger">
             <FaPlus /> Cancelar
           </StyledButton>
         </AddModalFormButtonsSection>

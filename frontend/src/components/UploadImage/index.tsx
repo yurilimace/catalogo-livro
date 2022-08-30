@@ -22,8 +22,6 @@ export const UploadImage = () => {
     },
   });
 
-  console.log(register);
-
   return (
     <UploadImageContainer>
       <div {...getRootProps({ className: "dropzone" })}>

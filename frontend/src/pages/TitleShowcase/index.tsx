@@ -18,15 +18,39 @@ import {
 } from "../../components/ImageContainer/styled";
 import { Button } from "react-bootstrap";
 import { Dialog } from "../../components/Dialog";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { TitleAtom } from "../../store/Title/title.atom";
+import axios from "axios";
 
 export const TitleShowcase = () => {
-  const { list } = UseTitleCRUD();
+  const { list, DeleteTitle, CreateTitle, loadingRequest } = UseTitleCRUD();
+  const [selectedTitle, setSelectedTitle] = useRecoilState(TitleAtom);
+  const resetList = useResetRecoilState(TitleAtom); // pode ser um estado local
 
   const [addModalShowController, setAddModalShowController] =
     React.useState(false);
 
   const [deleteDialogController, setDeleteDialogController] =
     React.useState(false);
+
+  const OpenUpdatedDialog = (title: any) => {
+    setSelectedTitle(title);
+    setAddModalShowController(true);
+  };
+
+  const CloseUpdateDialog = () => {
+    resetList();
+    setAddModalShowController(false);
+  };
+
+  const OpenDeleteDialog = (title: any) => {
+    setSelectedTitle(title);
+    setDeleteDialogController(true);
+  };
+
+  const buildDeleteDialogMessage = () => {
+    return `Deseja Realmente apagar o titulo ${selectedTitle.name} do acervo do site?`;
+  };
 
   return (
     <PageContentContainer>
@@ -48,13 +72,13 @@ export const TitleShowcase = () => {
                   <ImageContainer>
                     <ImageActions>
                       <RoundedButton
-                        onClick={() => setAddModalShowController(true)}
+                        onClick={() => OpenUpdatedDialog(item)}
                         bgColor={"black"}
                       >
                         <FaEdit size={15} color="white" />
                       </RoundedButton>
                       <RoundedButton
-                        onClick={() => setDeleteDialogController(true)}
+                        onClick={() => OpenDeleteDialog(item)}
                         bgColor={"black"}
                       >
                         <FaTrash size={15} color="white" />
@@ -87,15 +111,20 @@ export const TitleShowcase = () => {
       </Collectionexhibitor>
       <AddTitleModal
         show={addModalShowController}
+        Submit={CreateTitle}
+        loading={loadingRequest}
         title={"Adicionar Titulo"}
-        onHide={() => setAddModalShowController(false)}
+        onHide={() => CloseUpdateDialog()}
       />
 
       <Dialog
-        message="teste"
+        message={buildDeleteDialogMessage()}
         show={deleteDialogController}
         type="Action"
-        action={() => console.log("teste")}
+        loading={loadingRequest}
+        action={() =>
+          DeleteTitle(selectedTitle.id, () => setDeleteDialogController(false))
+        }
         dismiss={() => setDeleteDialogController(false)}
       />
     </PageContentContainer>
