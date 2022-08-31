@@ -16,16 +16,22 @@ import {
   ImageActions,
   ImageContainer,
 } from "../../components/ImageContainer/styled";
-import { Button } from "react-bootstrap";
+
 import { Dialog } from "../../components/Dialog";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { TitleAtom } from "../../store/Title/title.atom";
-import axios from "axios";
+import { TitleFormAtom } from "../../store/Title/title.atom";
+import { TitleForm, TitleShowcase as Title } from "../../types/Title";
 
 export const TitleShowcase = () => {
-  const { list, DeleteTitle, CreateTitle, loadingRequest } = UseTitleCRUD();
-  const [selectedTitle, setSelectedTitle] = useRecoilState(TitleAtom);
-  const resetList = useResetRecoilState(TitleAtom); // pode ser um estado local
+  const {
+    selectedTitle,
+    setSelectedTitle,
+    list,
+    DeleteTitle,
+    CreateTitle,
+    loadingRequest,
+    ResetSelectedTitleToDefaultValue,
+  } = UseTitleCRUD();
 
   const [addModalShowController, setAddModalShowController] =
     React.useState(false);
@@ -33,19 +39,24 @@ export const TitleShowcase = () => {
   const [deleteDialogController, setDeleteDialogController] =
     React.useState(false);
 
-  const OpenUpdatedDialog = (title: any) => {
+  const OpenUpdatedDialog = (title: Title) => {
     setSelectedTitle(title);
     setAddModalShowController(true);
   };
 
   const CloseUpdateDialog = () => {
-    resetList();
+    ResetSelectedTitleToDefaultValue();
     setAddModalShowController(false);
   };
 
-  const OpenDeleteDialog = (title: any) => {
+  const OpenDeleteDialog = (title: Title) => {
     setSelectedTitle(title);
     setDeleteDialogController(true);
+  };
+
+  const CloseDeleteDialog = () => {
+    ResetSelectedTitleToDefaultValue();
+    setDeleteDialogController(false);
   };
 
   const buildDeleteDialogMessage = () => {
@@ -62,7 +73,7 @@ export const TitleShowcase = () => {
       <Collectionexhibitor>
         <CollectionGrid>
           {list.length > 0 &&
-            list.map((item: any) => (
+            list.map((item: Title) => (
               <StyledCard
                 hasBoxShadow={true}
                 backgroundColor="white"
@@ -114,6 +125,7 @@ export const TitleShowcase = () => {
         Submit={CreateTitle}
         loading={loadingRequest}
         title={"Adicionar Titulo"}
+        titleSelected={selectedTitle}
         onHide={() => CloseUpdateDialog()}
       />
 
@@ -122,10 +134,8 @@ export const TitleShowcase = () => {
         show={deleteDialogController}
         type="Action"
         loading={loadingRequest}
-        action={() =>
-          DeleteTitle(selectedTitle.id, () => setDeleteDialogController(false))
-        }
-        dismiss={() => setDeleteDialogController(false)}
+        action={DeleteTitle}
+        dismiss={() => CloseDeleteDialog()}
       />
     </PageContentContainer>
   );

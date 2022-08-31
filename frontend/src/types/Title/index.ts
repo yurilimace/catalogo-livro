@@ -2,7 +2,16 @@ export type TitleDTO = {
   id?: string;
   name: string;
   author: string;
-  cover: File;
+  cover: File | null;
   publisher: string;
   coverURL?: string;
+};
+
+export type TitleShowcase = Omit<TitleDTO, "cover">;
+
+export type TitleForm = Omit<TitleDTO, "coverURL">;
+
+export type TitleRequestResponse = {
+  message: string;
+  titulo: TitleShowcase;
 };

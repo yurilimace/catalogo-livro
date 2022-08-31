@@ -15,14 +15,15 @@ import { FaPlus, FaSave } from "react-icons/fa";
 import { UploadImage } from "../UploadImage";
 
 import { useForm, FormProvider } from "react-hook-form";
-import { TitleDTO } from "../../types/Title";
+import { TitleDTO, TitleForm, TitleShowcase } from "../../types/Title";
 
 import { useRecoilValue } from "recoil";
-import { TitleAtom } from "../../store/Title/title.atom";
+import { TitleFormAtom } from "../../store/Title/title.atom";
 
 type AddTitleModalProps = {
   show: boolean;
   title: string;
+  titleSelected: TitleShowcase;
   loading?: boolean;
   Submit: (data: TitleDTO, dialogController: () => void) => void;
   onHide: () => void;
@@ -31,12 +32,13 @@ type AddTitleModalProps = {
 export const AddTitleModal = ({
   show,
   title,
+  titleSelected,
   onHide,
   loading,
   Submit,
 }: AddTitleModalProps) => {
-  const selectedTitle = useRecoilValue(TitleAtom);
-  const { name, publisher, author, id, coverUrl } = selectedTitle;
+  const { name, publisher, author, id } = titleSelected;
+  const titleForm: TitleForm = { id, name, publisher, author, cover: null };
   const { register, handleSubmit, ...methods } = useForm<TitleDTO>();
 
   React.useEffect(() => {
@@ -113,7 +115,12 @@ export const AddTitleModal = ({
               </>
             )}
           </StyledButton>
-          <StyledButton disabled={loading} width={"23%"} variant="danger">
+          <StyledButton
+            onClick={() => onHide()}
+            disabled={loading}
+            width={"23%"}
+            variant="danger"
+          >
             <FaPlus /> Cancelar
           </StyledButton>
         </AddModalFormButtonsSection>

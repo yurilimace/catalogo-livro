@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import { TitleDTO } from "../../types/Title";
 
 import { StyledModal } from "../AddTitleModal/styled";
 import { DialogActionsContainer } from "./styled";
@@ -10,7 +11,7 @@ type DialogProps = {
   type?: string;
   loading?: boolean;
   show: boolean;
-  action: () => void;
+  action: (dialogController: () => void) => void;
   dismiss: () => void;
 };
 
@@ -40,14 +41,18 @@ export const Dialog = ({
 
 const DialogActionManager = (
   type: string,
-  action: () => void,
+  action: (dialogController: () => void) => void,
   dismiss: () => void,
   loading?: boolean
 ) => {
   if (type === "Action") {
     return (
       <DialogActionsContainer>
-        <Button disabled={loading} onClick={() => action()} variant="primary">
+        <Button
+          disabled={loading}
+          onClick={() => action(dismiss)}
+          variant="primary"
+        >
           {loading ? (
             "...Carregando"
           ) : (
