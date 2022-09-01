@@ -18,9 +18,10 @@ import {
 } from "../../components/ImageContainer/styled";
 
 import { Dialog } from "../../components/Dialog";
-import { useRecoilState, useResetRecoilState } from "recoil";
-import { TitleFormAtom } from "../../store/Title/title.atom";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+
 import { TitleForm, TitleShowcase as Title } from "../../types/Title";
+import { userAuthenticateState } from "../../store/UserAuthenticate/userAuthenticate.atom";
 
 export const TitleShowcase = () => {
   const {
@@ -28,10 +29,12 @@ export const TitleShowcase = () => {
     setSelectedTitle,
     list,
     DeleteTitle,
-    CreateTitle,
+    Submit,
     loadingRequest,
     ResetSelectedTitleToDefaultValue,
   } = UseTitleCRUD();
+
+  const userProfile = useRecoilValue(userAuthenticateState);
 
   const [addModalShowController, setAddModalShowController] =
     React.useState(false);
@@ -65,11 +68,13 @@ export const TitleShowcase = () => {
 
   return (
     <PageContentContainer>
-      <div style={{ alignSelf: "end" }}>
-        <StyledButton onClick={() => setAddModalShowController(true)}>
-          <FaPlus /> Adicionar Titulo
-        </StyledButton>
-      </div>
+      {userProfile?.profile === "admin" && (
+        <div style={{ alignSelf: "end" }}>
+          <StyledButton onClick={() => setAddModalShowController(true)}>
+            <FaPlus /> Adicionar Titulo
+          </StyledButton>
+        </div>
+      )}
       <Collectionexhibitor>
         <CollectionGrid>
           {list.length > 0 &&
@@ -81,20 +86,23 @@ export const TitleShowcase = () => {
               >
                 <CardTitle>
                   <ImageContainer>
-                    <ImageActions>
-                      <RoundedButton
-                        onClick={() => OpenUpdatedDialog(item)}
-                        bgColor={"black"}
-                      >
-                        <FaEdit size={15} color="white" />
-                      </RoundedButton>
-                      <RoundedButton
-                        onClick={() => OpenDeleteDialog(item)}
-                        bgColor={"black"}
-                      >
-                        <FaTrash size={15} color="white" />
-                      </RoundedButton>
-                    </ImageActions>
+                    {userProfile?.profile === "admin" && (
+                      <ImageActions>
+                        <RoundedButton
+                          onClick={() => OpenUpdatedDialog(item)}
+                          bgColor={"black"}
+                        >
+                          <FaEdit size={15} color="white" />
+                        </RoundedButton>
+                        <RoundedButton
+                          onClick={() => OpenDeleteDialog(item)}
+                          bgColor={"black"}
+                        >
+                          <FaTrash size={15} color="white" />
+                        </RoundedButton>
+                      </ImageActions>
+                    )}
+
                     <img
                       src={item.coverURL}
                       style={{
@@ -122,7 +130,7 @@ export const TitleShowcase = () => {
       </Collectionexhibitor>
       <AddTitleModal
         show={addModalShowController}
-        Submit={CreateTitle}
+        Submit={Submit}
         loading={loadingRequest}
         title={"Adicionar Titulo"}
         titleSelected={selectedTitle}

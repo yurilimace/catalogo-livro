@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode";
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -35,11 +36,13 @@ export const RoutesWithoutPageContainer = () => {
 export const CustomRouter = () => {
   const [userHasToken, setUserHasToken] = useRecoilState(userAuthenticateState);
 
+  console.log(userHasToken);
+
   React.useEffect(() => {
     const updatedToken = localStorage.getItem("token");
 
     if (!userHasToken && updatedToken) {
-      setUserHasToken(updatedToken);
+      setUserHasToken({ token: updatedToken, profile: "simple" });
     }
   }, [userHasToken]);
 

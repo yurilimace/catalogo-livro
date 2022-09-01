@@ -3,7 +3,6 @@ import { BaseServiceURL } from "../../../service/config";
 import { toast } from "react-toastify";
 import {
   TitleDTO,
-  TitleForm,
   TitleRequestResponse,
   TitleShowcase,
 } from "../../../types/Title";
@@ -28,6 +27,32 @@ export const UseTitleCRUD = () => {
       setTitleList(response.data);
     }
   }
+
+  const UpdateTitle = async (data: TitleDTO, dialogController: () => void) => {
+    setRequestLoading(true);
+    const response = await BaseServiceURL.put<TitleRequestResponse>(
+      "title",
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    if (response.status === 200) {
+      toast.success(response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        onClose: () => {
+          setRequestLoading(false);
+          ResetSelectedTitleToDefaultValue();
+          dialogController();
+          GetAllTitles();
+        },
+      });
+    }
+  };
 
   const CreateTitle = async (data: TitleDTO, dialogController: () => void) => {
     setRequestLoading(true);
@@ -75,6 +100,17 @@ export const UseTitleCRUD = () => {
     }
   };
 
+  const SubmitTitleForm = async (
+    data: TitleDTO,
+    dialogController: () => void
+  ) => {
+    if (selectedTitle.id === "") {
+      await CreateTitle(data, dialogController);
+    } else {
+      await UpdateTitle(data, dialogController);
+    }
+  };
+
   const ResetSelectedTitleToDefaultValue = () => {
     setSelectedTitle(titleShowCaseDefaultValue);
   };
@@ -87,6 +123,7 @@ export const UseTitleCRUD = () => {
     getAllTitles: GetAllTitles,
     CreateTitle: CreateTitle,
     DeleteTitle: DeleteTitle,
+    Submit: SubmitTitleForm,
     ResetSelectedTitleToDefaultValue: ResetSelectedTitleToDefaultValue,
     loadingRequest: requestLoading,
     list: titleList,
