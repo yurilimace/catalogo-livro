@@ -62,6 +62,20 @@ export class UserService {
     return userDtoResponse;
   }
 
+  async ParseUserToAdmin(userId: string) {
+    console.log(userId);
+    const user = await this.userRepository.FindById(userId);
+    const adminProfile = await this.profileService.FindProfile('admin');
+
+    user.profile = adminProfile;
+    const updateResponse = await this.userRepository.UpdateUser(user);
+
+    const userDtoResponse = plainToClass(CreateUserDTO, updateResponse, {
+      excludeExtraneousValues: true,
+    });
+    return userDtoResponse;
+  }
+
   async DeleteUser(userId: string): Promise<CreateUserDTO> {
     const deletedUser = await this.userRepository.DeleteUser(userId);
     const UserToDto = plainToClass(CreateUserDTO, deletedUser);
@@ -70,12 +84,15 @@ export class UserService {
 
   async authenticateUser(userParam: CreateUserDTO): Promise<UserDTO> {
     const user = await this.userRepository.FindUser(userParam);
+
     const userToken = GenerateToken(user[0]);
     if (user.length > 0) {
       const userDTO = plainToClass(UserDTO, user[0], {
         excludeExtraneousValues: true,
       });
       userDTO.token = userToken;
+
+      console.log(userToken);
 
       return userDTO;
     }
