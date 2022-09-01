@@ -9,7 +9,9 @@ export type TitleDTO = {
 
 export type TitleShowcase = Omit<TitleDTO, "cover">;
 
-export type TitleForm = Omit<TitleDTO, "coverURL">;
+export type TitleForm = Omit<TitleDTO, "coverURL"> & {
+  coverPreview: string;
+};
 
 export type TitleRequestResponse = {
   message: string;

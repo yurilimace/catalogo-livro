@@ -8,6 +8,7 @@ export const TitleFormAtom = atom<TitleForm>({
     name: "",
     author: "",
     publisher: "",
+    coverPreview: "",
     cover: null,
   },
 });

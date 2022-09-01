@@ -37,18 +37,19 @@ export const AddTitleModal = ({
   loading,
   Submit,
 }: AddTitleModalProps) => {
-  const { name, publisher, author, id } = titleSelected;
-  const titleForm: TitleForm = { id, name, publisher, author, cover: null };
+  //const { name, publisher, author, id, coverURL } = titleSelected;
+  const titleFormDefaultValues: TitleDTO = { ...titleSelected, cover: null };
   const { register, handleSubmit, ...methods } = useForm<TitleDTO>();
 
   React.useEffect(() => {
     if (show) {
-      methods.reset({ name: name, publisher: publisher, author: author });
+      methods.reset({ ...titleFormDefaultValues });
     }
   }, [show]);
 
   const submit = async (data: TitleDTO) => {
-    Submit(data, () => onHide());
+    console.log(data, "<-------data");
+    //Submit(data, () => onHide());
   };
 
   return (
@@ -65,7 +66,9 @@ export const AddTitleModal = ({
           <Form id={"addTitleForm"} onSubmit={handleSubmit(submit)}>
             <AddModalFormContainer>
               <AddModalFormInputFileSection>
-                <UploadImage />
+                <UploadImage
+                  defaultPreviewImage={titleFormDefaultValues.coverURL ?? ""}
+                />
               </AddModalFormInputFileSection>
               <AddModalFormInputsSection>
                 <Form.Label> Titulo </Form.Label>

@@ -1,23 +1,23 @@
-import React, { InputHTMLAttributes } from "react";
+import React from "react";
 import { useDropzone } from "react-dropzone";
 import { PreviewImageUpload, UploadImageContainer } from "./styled";
 import { FaImage } from "react-icons/fa";
-import { FieldValues, useFormContext, UseFormRegister } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
-type Props = {
-  register: UseFormRegister<FieldValues>;
+type UploadImageProps = {
+  defaultPreviewImage: string;
 };
 
-export const UploadImage = () => {
-  // const { onChange, onBlur, name, ref } = register("imagem");
-  const { register, setValue } = useFormContext();
-  const [previewImage, setPrewiewImage] = React.useState("");
+export const UploadImage = ({ defaultPreviewImage }: UploadImageProps) => {
+  const { register, setValue, getValues } = useFormContext();
+  const previewImageFromFormDefaultValue = getValues();
+
+  const [previewImage, setPrewiewImage] = React.useState(defaultPreviewImage);
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles: any) => {
       setPrewiewImage(URL.createObjectURL(acceptedFiles[0]));
     },
     onDropAccepted: (files) => {
-      console.log(files);
       setValue("cover", files[0]);
     },
   });
