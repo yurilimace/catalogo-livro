@@ -15,10 +15,12 @@ import { FaPlus, FaSave } from "react-icons/fa";
 import { UploadImage } from "../UploadImage";
 
 import { useForm, FormProvider } from "react-hook-form";
-import { TitleDTO, TitleForm, TitleShowcase } from "../../types/Title";
+import { TitleDTO, TitleShowcase } from "../../types/Title";
 
-import { useRecoilValue } from "recoil";
-import { TitleFormAtom } from "../../store/Title/title.atom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { TitleFormSchema } from "../../schemas/Title/titleSchema";
+import { RequiredFieldWarning } from "../RequiredFieldWarning";
+import { LoginFormInput } from "../../pages/Login/styled";
 
 type AddTitleModalProps = {
   show: boolean;
@@ -39,7 +41,9 @@ export const AddTitleModal = ({
 }: AddTitleModalProps) => {
   //const { name, publisher, author, id, coverURL } = titleSelected;
   const titleFormDefaultValues: TitleDTO = { ...titleSelected, cover: null };
-  const { register, handleSubmit, ...methods } = useForm<TitleDTO>();
+  const { register, handleSubmit, ...methods } = useForm<TitleDTO>({
+    resolver: yupResolver(TitleFormSchema),
+  });
 
   React.useEffect(() => {
     if (show) {
@@ -68,22 +72,40 @@ export const AddTitleModal = ({
                 <UploadImage
                   defaultPreviewImage={titleFormDefaultValues.coverURL ?? ""}
                 />
+                {methods.formState.errors.cover && (
+                  <RequiredFieldWarning
+                    message={methods.formState.errors.cover.message}
+                  />
+                )}
               </AddModalFormInputFileSection>
               <AddModalFormInputsSection>
                 <Form.Label> Titulo </Form.Label>
-                <Form.Control
+                <LoginFormInput
                   {...register("name")}
                   placeholder="Titulo vol xx"
+                  hasErrors={methods.formState.errors.name?.message}
                 />
+                {methods.formState.errors.name?.message && (
+                  <RequiredFieldWarning
+                    message={methods.formState.errors.name.message}
+                  />
+                )}
                 <br />
                 <Form.Label> Autor </Form.Label>
-                <Form.Control
+                <LoginFormInput
                   {...register("author")}
                   placeholder="Autor da obra"
+                  hasErrors={methods.formState.errors.author?.message}
                 />
+                {methods.formState.errors.author?.message && (
+                  <RequiredFieldWarning
+                    message={methods.formState.errors.author.message}
+                  />
+                )}
                 <br />
 
                 {/* mudar o campo editora para um select */}
+                {/* Criar styled component para componente select apresentar validação */}
                 <Form.Label> Editora </Form.Label>
                 <Form.Select {...register("publisher")} placeholder="Editora">
                   {" "}
@@ -94,6 +116,11 @@ export const AddTitleModal = ({
                     </option>
                   ))}{" "}
                 </Form.Select>
+                {methods.formState.errors.publisher?.message && (
+                  <RequiredFieldWarning
+                    message={methods.formState.errors.publisher.message}
+                  />
+                )}
 
                 <br />
               </AddModalFormInputsSection>
