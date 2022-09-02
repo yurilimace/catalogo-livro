@@ -31,9 +31,10 @@ export class TitleService {
   }
 
   async SaveTitle(title: TitleDTO): Promise<any> {
-    const hasTitleWithSameName = this.titleRepository.FindTitleByName(
+    const hasTitleWithSameName = await this.titleRepository.FindTitleByName(
       title.name,
     );
+
     if (hasTitleWithSameName) {
       throw { message: 'Já existe um titulo salvo com esse nome' };
     }

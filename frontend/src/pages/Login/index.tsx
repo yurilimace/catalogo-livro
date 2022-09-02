@@ -15,19 +15,7 @@ import { useRecoilState } from "recoil";
 import { userAuthenticateState } from "../../store/UserAuthenticate/userAuthenticate.atom";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-
-type token = {
-  data: userInfo;
-};
-
-type userInfo = {
-  email: string;
-  firstName: string;
-  id: string;
-  lastName: string;
-  password: string;
-  profile: { profileId: string; profileName: string };
-};
+import { token } from "../../types/Authenticate";
 
 export const Login = () => {
   const navigate = useNavigate();

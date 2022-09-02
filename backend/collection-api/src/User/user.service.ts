@@ -92,8 +92,6 @@ export class UserService {
       });
       userDTO.token = userToken;
 
-      console.log(userToken);
-
       return userDTO;
     }
   }

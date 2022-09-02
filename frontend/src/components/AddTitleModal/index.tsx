@@ -48,7 +48,6 @@ export const AddTitleModal = ({
   }, [show]);
 
   const submit = async (data: TitleDTO) => {
-    console.log(data, "<-------data");
     Submit(data, () => onHide());
   };
 

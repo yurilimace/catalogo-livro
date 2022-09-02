@@ -8,12 +8,13 @@ import { Login } from "../pages/Login";
 import { SignUpPage } from "../pages/Register";
 import { TitleShowcase } from "../pages/TitleShowcase";
 import { userAuthenticateState } from "../store/UserAuthenticate/userAuthenticate.atom";
+import { token } from "../types/Authenticate";
 
 export const RoutesWithPageContainer = () => {
   return (
     <PageContainer>
       <Routes>
-        <Route path="/" element={<h2> Dashboard Inicial </h2>} />
+        <Route path="/" element={<Navigate to="/menu1" />} />
         <Route path="/menu1" element={<Collection />} />
         <Route path="/menu2" element={<h2> Menu 2 </h2>} />
         <Route path="/menu3" element={<TitleShowcase />} />
@@ -41,8 +42,12 @@ export const CustomRouter = () => {
   React.useEffect(() => {
     const updatedToken = localStorage.getItem("token");
 
-    if (!userHasToken && updatedToken) {
-      setUserHasToken({ token: updatedToken, profile: "simple" });
+    if (userHasToken?.token == "" && updatedToken) {
+      const decodedToken = jwtDecode<token>(updatedToken);
+      setUserHasToken({
+        token: updatedToken,
+        profile: decodedToken.data.profile.profileName,
+      });
     }
   }, [userHasToken]);
 

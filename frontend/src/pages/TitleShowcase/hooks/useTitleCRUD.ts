@@ -56,6 +56,8 @@ export const UseTitleCRUD = () => {
 
   const CreateTitle = async (data: TitleDTO, dialogController: () => void) => {
     setRequestLoading(true);
+    delete data.id;
+    delete data.coverURL;
     const response = await BaseServiceURL.post<TitleRequestResponse>(
       "title",
       data,
