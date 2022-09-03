@@ -9,7 +9,12 @@ type UploadImageProps = {
 };
 
 export const UploadImage = ({ defaultPreviewImage }: UploadImageProps) => {
-  const { register, setValue, getValues } = useFormContext();
+  const {
+    register,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useFormContext();
   const previewImageFromFormDefaultValue = getValues();
 
   const [previewImage, setPrewiewImage] = React.useState(defaultPreviewImage);
@@ -23,7 +28,7 @@ export const UploadImage = ({ defaultPreviewImage }: UploadImageProps) => {
   });
 
   return (
-    <UploadImageContainer>
+    <UploadImageContainer hasErrors={errors.cover}>
       <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} />
         {previewImage === "" ? (

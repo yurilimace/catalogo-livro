@@ -21,6 +21,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { TitleFormSchema } from "../../schemas/Title/titleSchema";
 import { RequiredFieldWarning } from "../RequiredFieldWarning";
 import { LoginFormInput } from "../../pages/Login/styled";
+import { SelectWithFormValidation } from "../RequiredSelect/styled";
 
 type AddTitleModalProps = {
   show: boolean;
@@ -69,14 +70,14 @@ export const AddTitleModal = ({
           <Form id={"addTitleForm"} onSubmit={handleSubmit(submit)}>
             <AddModalFormContainer>
               <AddModalFormInputFileSection>
-                <UploadImage
-                  defaultPreviewImage={titleFormDefaultValues.coverURL ?? ""}
-                />
                 {methods.formState.errors.cover && (
                   <RequiredFieldWarning
                     message={methods.formState.errors.cover.message}
                   />
                 )}
+                <UploadImage
+                  defaultPreviewImage={titleFormDefaultValues.coverURL ?? ""}
+                />
               </AddModalFormInputFileSection>
               <AddModalFormInputsSection>
                 <Form.Label> Titulo </Form.Label>
@@ -107,7 +108,11 @@ export const AddTitleModal = ({
                 {/* mudar o campo editora para um select */}
                 {/* Criar styled component para componente select apresentar validação */}
                 <Form.Label> Editora </Form.Label>
-                <Form.Select {...register("publisher")} placeholder="Editora">
+                <SelectWithFormValidation
+                  {...register("publisher")}
+                  placeholder="Editora"
+                  hasErrors={methods.formState.errors.cover}
+                >
                   {" "}
                   {PUBLISHEROPTIONS.map((publisher, index) => (
                     <option key={index} value={publisher.value}>
@@ -115,7 +120,7 @@ export const AddTitleModal = ({
                       {publisher.name}{" "}
                     </option>
                   ))}{" "}
-                </Form.Select>
+                </SelectWithFormValidation>
                 {methods.formState.errors.publisher?.message && (
                   <RequiredFieldWarning
                     message={methods.formState.errors.publisher.message}

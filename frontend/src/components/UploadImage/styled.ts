@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-export const UploadImageContainer = styled.div`
-  border: 3px #dedede dashed;
+export const UploadImageContainer = styled.div<{ hasErrors: boolean }>`
+  border: ${(props) =>
+    props.hasErrors ? "3px red dashed" : "3px #dedede dashed"};
   width: 210px;
   height: 310px;
   background-color: #fafafa;
