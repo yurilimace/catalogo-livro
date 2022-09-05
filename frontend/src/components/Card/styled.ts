@@ -8,12 +8,22 @@ export const Card = styled.div<{
   flex-direction: column;
   width: fit-content;
   align-items: start;
-  border-radius: 24px;
+  height: 304px;
+  border-radius: 12px;
+
   background-color: ${(props) => props.backgroundColor ?? "#fff"};
   box-shadow: ${(props) =>
     props.hasBoxShadow && "rgba(0, 0, 0, 0.24) 0px 3px 8px"};
   > *:not(:last-child) {
     ${(props) => props.hasDivider && `border-bottom: 1px solid #bbb;`}
+  }
+
+  transition: height 0.2s ease-in;
+  :hover {
+    height: 380px;
+    > div {
+      display: flex;
+    }
   }
 `;
 export const CardTitle = styled.div<{ color?: string }>`
@@ -22,16 +32,19 @@ export const CardTitle = styled.div<{ color?: string }>`
 `;
 
 export const CardBody = styled.div`
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
+
+  h4 {
+    font-size: 1.3rem;
+  }
 `;
 
 export const CardFooter = styled.div`
-  display: flex;
-
+  display: none;
   justify-content: center;
   align-items: center;
 `;

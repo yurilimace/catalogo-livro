@@ -56,6 +56,9 @@ export const StyledNavbar = () => {
       <NavItem onClick={() => handleNavigate("3", "/menu2")}>
         <div> Pilha de Leitura </div>
       </NavItem>
+      <NavItem onClick={() => handleNavigate("4", "/menu3")}>
+        <div> Acervo </div>
+      </NavItem>
       <NavItem
         isDropdownOpen={showDropdown}
         onClick={(event: any) => handleShowDropdown(event)}

@@ -10,7 +10,7 @@ export class TitleDTO {
   @Expose()
   publisher: string;
   @Exclude()
-  cover: Express.Multer.File;
+  cover: Express.Multer.File | null;
   @Expose()
   coverURL: string;
 }

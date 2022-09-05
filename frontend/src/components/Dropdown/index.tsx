@@ -1,7 +1,9 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 import { userAuthenticateState } from "../../store/UserAuthenticate/userAuthenticate.atom";
+import { FaSignOutAlt, FaUserAlt, FaPlus } from "react-icons/fa";
 import { Dropdown, DropdownItem } from "./styled";
+import { modalManager } from "../../store/Modal/modalManager.atom";
 
 export const DropdownMenu = ({ active }: any) => {
   const menu = ["Meus dados", "Sair"];
@@ -12,9 +14,23 @@ export const DropdownMenu = ({ active }: any) => {
   };
 
   return (
-    <Dropdown active={active} className="open">
-      <DropdownItem>Meus Dados</DropdownItem>
-      <DropdownItem onClick={Logout}>Sair</DropdownItem>
+    <Dropdown active={active}>
+      <DropdownItem>
+        <div>
+          <FaUserAlt />
+        </div>
+        <div>
+          <span> Meus Dados </span>
+        </div>
+      </DropdownItem>
+      <DropdownItem onClick={Logout}>
+        <div>
+          <FaSignOutAlt />
+        </div>
+        <div>
+          <span> Sair </span>
+        </div>
+      </DropdownItem>
 
       {/* {menu.map((m, index) => (
         <DropdownItem key={index}> {m} </DropdownItem>

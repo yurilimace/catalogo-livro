@@ -1,28 +1,32 @@
 import {
   getBytes,
   getDownloadURL,
+  getMetadata,
   getStorage,
   ref,
   uploadBytes,
 } from 'firebase/storage';
 import { TitleDTO } from 'src/Title/DTO/create.title.dto';
-import { ConvertImageBase64ToByteArray } from './convertImage';
-import { CreateNameUploadFileName } from './CreateNameUploadFile';
 
-export const UploadImageInBucket = async (title: TitleDTO) => {
+export const UploadImageRefInBucket = async (
+  title: TitleDTO,
+  previousTitle: TitleDTO,
+) => {
   const storage = getStorage();
   const storageRef = ref(storage, `/covers/${title.name}`);
+  const previousTitleStorageRef = ref(storage, `/covers/${previousTitle.name}`);
 
-  const metadata = {
-    contentType: title.cover.mimetype,
-  };
+  const imageBytesfromPreviousImage = await getBytes(previousTitleStorageRef);
+  const imageMetadatafromPreviousImage = await getMetadata(
+    previousTitleStorageRef,
+  );
 
   // const convertedImage = ConvertImageBase64ToByteArray(imageBase64);
 
   const uploadImage = await uploadBytes(
     storageRef,
-    title.cover.buffer,
-    metadata,
+    imageBytesfromPreviousImage,
+    imageMetadatafromPreviousImage,
   );
 
   const imageURL = getDownloadURL(storageRef);

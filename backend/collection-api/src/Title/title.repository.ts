@@ -26,6 +26,17 @@ export class TitleRepository {
     }
   }
 
+  async FindTitleByName(titleName: string) {
+    const title = await this.titleRepository.findOne({
+      where: { name: titleName },
+    });
+
+    if (!title) {
+      return false;
+    }
+    return true;
+  }
+
   async FindAllTitle() {
     const allTitles = await this.titleRepository.find();
     return allTitles;
