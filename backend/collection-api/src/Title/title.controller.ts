@@ -46,23 +46,26 @@ export class TitleController {
     @Body() b: TitleDTO,
     @Res() response,
   ) {
-    const createdTitle = await this.TitleService.SaveTitle({
-      ...b,
-      cover: file,
-    });
-    if (createdTitle) {
-      response
-        .status(HttpStatus.CREATED)
-        .json({ message: 'Titulo Adicionado', titulo: createdTitle });
+    try {
+      const createdTitle = await this.TitleService.SaveTitle({
+        ...b,
+        cover: file,
+      });
+      if (createdTitle) {
+        response
+          .status(HttpStatus.CREATED)
+          .json({ message: 'Titulo Adicionado', titulo: createdTitle });
+      }
+    } catch (err) {
+      response.status(HttpStatus.CONFLICT).json({ message: err.message });
     }
-    return 'retorno do post';
   }
 
   @UseInterceptors(FileInterceptor('cover'))
   @Put()
   async UpdateTitle(
     @Body() b: TitleDTO,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: Express.Multer.File | null,
     @Res() Response,
   ) {
     const updateTitle = await this.TitleService.UpdateTitle({

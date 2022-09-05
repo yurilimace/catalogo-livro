@@ -1,6 +1,10 @@
 import { atom } from "recoil";
+import { AuthUser } from "../../types/Authenticate";
 
-export const userAuthenticateState = atom<string | null>({
+export const userAuthenticateState = atom<AuthUser | null>({
   key: "userAuth",
-  default: null,
+  default: {
+    token: "",
+    profile: "simple",
+  },
 });

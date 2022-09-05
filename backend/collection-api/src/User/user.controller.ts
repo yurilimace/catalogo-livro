@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Query,
+  Param,
   Res,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -61,6 +62,15 @@ export class UserController {
     return response;
   }
 
+  @Put('/admin/:id')
+  async ParseUserToAdmin(@Param('id') id, @Res() response) {
+    const userParse = await this.userService.ParseUserToAdmin(id);
+
+    return response
+      .status(HttpStatus.OK)
+      .json({ message: 'endpoint para tornar usuario admin', user: userParse });
+  }
+
   @Delete('/delete')
   DeleteUser(@Query() q: { id: string }) {
     const response = this.userService.DeleteUser(q.id);
@@ -69,12 +79,6 @@ export class UserController {
 
   @Post('/authenticate')
   async authenticate(@Res() response: Response, @Body() b: CreateUserDTO) {
-    // const newUser: User = {} as User;
-    // newUser.firstName = b.firstName;
-    // newUser.lastName = b.lastName;
-    // newUser.email = b.email;
-    // newUser.password = b.password;
-
     const result: UserDTO = await this.userService.authenticateUser(b);
 
     if (!result) {
