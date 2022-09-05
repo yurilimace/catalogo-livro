@@ -63,7 +63,6 @@ export class UserService {
   }
 
   async ParseUserToAdmin(userId: string) {
-    console.log(userId);
     const user = await this.userRepository.FindById(userId);
     const adminProfile = await this.profileService.FindProfile('admin');
 

@@ -20,7 +20,6 @@ export const UploadImageRefInBucket = async (
   const imageMetadatafromPreviousImage = await getMetadata(
     previousTitleStorageRef,
   );
-  console.log(imageMetadatafromPreviousImage);
 
   // const convertedImage = ConvertImageBase64ToByteArray(imageBase64);
 
