@@ -10,8 +10,7 @@ import {
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  @Generated('uuid')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @ManyToOne(() => Profile)
