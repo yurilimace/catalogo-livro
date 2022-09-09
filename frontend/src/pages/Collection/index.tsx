@@ -8,10 +8,15 @@ import { PageContentContainer } from "../../components/PageContainer/styled";
 
 import { CollectionGrid } from "../../components/CollectionGrid/styled";
 import { useCollection } from "./hooks/useCollection";
-import { ImageContainer } from "../../components/ImageContainer/styled";
+import {
+  ImageActions,
+  ImageContainer,
+} from "../../components/ImageContainer/styled";
+import { RoundedButton } from "../../components/Button/styled";
+import { FaTrash } from "react-icons/fa";
 
 export const Collection = () => {
-  const { collection } = useCollection();
+  const { collection, DeleteCollection } = useCollection();
 
   return (
     <PageContentContainer>
@@ -24,6 +29,24 @@ export const Collection = () => {
             <StyledCard hasBoxShadow={true} backgroundColor="white" key={a.id}>
               <CardTitle>
                 <ImageContainer>
+                  <ImageActions>
+                    <span
+                      style={{
+                        color: "antiquewhite",
+                        marginRight: "auto",
+                        padding: "10px",
+                      }}
+                    >
+                      {" "}
+                      nota: {a.rate}/5{" "}
+                    </span>
+                    <RoundedButton
+                      onClick={() => DeleteCollection(a.id)}
+                      bgColor={"black"}
+                    >
+                      <FaTrash size={15} color="white" />
+                    </RoundedButton>
+                  </ImageActions>
                   <img
                     src={a.title.cover}
                     style={{
@@ -47,26 +70,6 @@ export const Collection = () => {
               </CardFooter>
             </StyledCard>
           ))}
-          {/* {cardList.map((a) => (
-            <StyledCard hasBoxShadow={true} backgroundColor="white" key={a}>
-              <CardTitle>
-                <div>
-                  <img style={{ borderRadius: "12px" }} src={teste} />
-                </div>
-              </CardTitle>
-              <CardBody>
-                <div>
-                  <h4> tenjho tenge vol 16 </h4>
-                </div>
-              </CardBody>
-
-              <CardFooter>
-                <div>
-                  <h6> Footer Teste </h6>
-                </div>
-              </CardFooter>
-            </StyledCard>
-          ))} */}
         </CollectionGrid>
       </Collectionexhibitor>
     </PageContentContainer>
