@@ -29,6 +29,7 @@ export const TitleShowcase = () => {
     setSelectedTitle,
     list,
     DeleteTitle,
+    AddTitleToCollection,
     Submit,
     loadingRequest,
     ResetSelectedTitleToDefaultValue,
@@ -120,7 +121,10 @@ export const TitleShowcase = () => {
                 </CardBody>
                 <Space />
                 <CardFooter>
-                  <StyledButton width={"80%"}>
+                  <StyledButton
+                    onClick={() => item.id && AddTitleToCollection(item.id)}
+                    width={"80%"}
+                  >
                     <FaPlus /> Adicionar Titulo
                   </StyledButton>
                 </CardFooter>
