@@ -31,9 +31,10 @@ export const Collection = () => {
               </CardTitle>
               <CardBody>
                 <div>
-                  <h4> Titulo </h4>
+                  <h4> tenjho tenge vol 16 </h4>
                 </div>
               </CardBody>
+
               <CardFooter>
                 <div>
                   <h6> Footer Teste </h6>

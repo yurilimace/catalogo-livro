@@ -14,6 +14,9 @@ import { BaseServiceURL } from "../../service/config";
 import { useRecoilState } from "recoil";
 import { userAuthenticateState } from "../../store/UserAuthenticate/userAuthenticate.atom";
 import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import { token } from "../../types/Authenticate";
+
 export const Login = () => {
   const navigate = useNavigate();
   const [userToken, setUserToken] = useRecoilState(userAuthenticateState);
@@ -25,8 +28,14 @@ export const Login = () => {
       data
     );
 
+    const decodedToken = jwtDecode<token>(responseData.data.token);
+
     localStorage.setItem("token", responseData.data.token);
-    setUserToken(responseData.data.token);
+
+    setUserToken({
+      token: responseData.data.token,
+      profile: decodedToken.data.profile.profileName,
+    });
   };
 
   return (

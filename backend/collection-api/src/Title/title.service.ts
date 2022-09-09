@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
+
 import { DeleteImageInBucket } from 'src/utils/DeleteImageFromBucket';
+import { UploadImageRefInBucket } from 'src/utils/updateImageRef';
 import { UploadImageInBucket } from 'src/utils/UploadImageIntoBucket';
 import { TitleDTO } from './DTO/create.title.dto';
-import { Title } from './title.entity';
+
 import { TitleRepository } from './title.repository';
 
 @Injectable()
@@ -29,20 +31,32 @@ export class TitleService {
   }
 
   async SaveTitle(title: TitleDTO): Promise<any> {
-    const imageURL: string = await UploadImageInBucket(title);
+    const hasTitleWithSameName = await this.titleRepository.FindTitleByName(
+      title.name,
+    );
 
+    if (hasTitleWithSameName) {
+      throw { message: 'Já existe um titulo salvo com esse nome' };
+    }
+    const imageURL: string = await UploadImageInBucket(title);
     const titleWithConvertedImage = this.titleRepository.CreateTitle(
       title,
       imageURL,
     );
-
     return await this.titleRepository.SaveTitle(titleWithConvertedImage);
   }
 
   async UpdateTitle(title: TitleDTO): Promise<TitleDTO> {
-    const previousName = await this.GetTitle(title.id);
-    const newImage = await UploadImageInBucket(title);
-    await DeleteImageInBucket(previousName.name);
+    const previousTitle = await this.GetTitle(title.id);
+    let newImage = '';
+
+    if (title.cover) {
+      newImage = await UploadImageInBucket(title);
+    } else {
+      newImage = await UploadImageRefInBucket(title, previousTitle);
+      await DeleteImageInBucket(previousTitle.name);
+    }
+
     const objectWithNewValues = this.titleRepository.CreateTitle(
       title,
       newImage,
