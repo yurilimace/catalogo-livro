@@ -37,8 +37,6 @@ export const RoutesWithoutPageContainer = () => {
 export const CustomRouter = () => {
   const [userHasToken, setUserHasToken] = useRecoilState(userAuthenticateState);
 
-  console.log(userHasToken);
-
   React.useEffect(() => {
     const updatedToken = localStorage.getItem("token");
 

@@ -2,8 +2,7 @@ import { Column, Generated, PrimaryGeneratedColumn, Entity } from 'typeorm';
 
 @Entity()
 export class Title {
-  @PrimaryGeneratedColumn()
-  @Generated('uuid')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
