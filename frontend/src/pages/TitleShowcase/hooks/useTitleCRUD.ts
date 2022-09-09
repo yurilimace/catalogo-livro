@@ -6,6 +6,8 @@ import {
   TitleRequestResponse,
   TitleShowcase,
 } from "../../../types/Title";
+import { token } from "../../../types/Authenticate";
+import jwtDecode from "jwt-decode";
 
 export const UseTitleCRUD = () => {
   const titleShowCaseDefaultValue: TitleShowcase = {
@@ -102,6 +104,29 @@ export const UseTitleCRUD = () => {
     }
   };
 
+  const AddTitleToCollection = async (titleId: string) => {
+    const userToken = localStorage.getItem("token");
+    if (userToken) {
+      const decodeToken = jwtDecode<token>(userToken);
+      const userId = decodeToken.data.id;
+      const response = await BaseServiceURL.post("/collection", {
+        userId: userId,
+        titleId: titleId,
+      });
+      if (response.status === 201) {
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          onClose: () => {
+            setRequestLoading(false);
+            GetAllTitles();
+          },
+        });
+      }
+    }
+  };
+
   const SubmitTitleForm = async (
     data: TitleDTO,
     dialogController: () => void
@@ -125,6 +150,7 @@ export const UseTitleCRUD = () => {
     getAllTitles: GetAllTitles,
     CreateTitle: CreateTitle,
     DeleteTitle: DeleteTitle,
+    AddTitleToCollection: AddTitleToCollection,
     Submit: SubmitTitleForm,
     ResetSelectedTitleToDefaultValue: ResetSelectedTitleToDefaultValue,
     loadingRequest: requestLoading,
