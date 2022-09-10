@@ -48,12 +48,16 @@ export class TitleService {
 
   async UpdateTitle(title: TitleDTO): Promise<TitleDTO> {
     const previousTitle = await this.GetTitle(title.id);
-    let newImage = '';
+    let newImage = title.coverURL ?? '';
 
     if (title.cover) {
       newImage = await UploadImageInBucket(title);
-    } else {
+    }
+    if (previousTitle.name !== title.name && !title.cover) {
       newImage = await UploadImageRefInBucket(title, previousTitle);
+    }
+
+    if (newImage !== title.coverURL && newImage !== '') {
       await DeleteImageInBucket(previousTitle.name);
     }
 
