@@ -53,7 +53,7 @@ export const StyledNavbar = () => {
         false
       );
     };
-  }, []);
+  }, [location]);
 
   return (
     <Navbar active={selectedMenu}>
