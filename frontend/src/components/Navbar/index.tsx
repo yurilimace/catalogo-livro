@@ -3,7 +3,7 @@ import { Navbar, NavItem } from "./styled";
 
 import { FaBook } from "react-icons/fa";
 import { DropdownMenu } from "../Dropdown";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { UserProfileNavbar } from "../UserProfileNavbar";
 
@@ -12,7 +12,7 @@ export const StyledNavbar = () => {
   const [showDropdown, setShowDropdonw] = React.useState(false);
 
   const navigate = useNavigate();
-  //const location = useLocation();
+  const location = useLocation();
 
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -35,6 +35,16 @@ export const StyledNavbar = () => {
   };
 
   React.useEffect(() => {
+    if (location.pathname === "/menu1" || location.pathname === "/") {
+      setSelectedMenu("2");
+    }
+    if (location.pathname === "/menu2") {
+      setSelectedMenu("3");
+    }
+    if (location.pathname === "/menu3") {
+      setSelectedMenu("4");
+    }
+
     document.addEventListener("mousedown", (e) => handleEventClick(e), false);
     return () => {
       document.removeEventListener(
@@ -47,7 +57,7 @@ export const StyledNavbar = () => {
 
   return (
     <Navbar active={selectedMenu}>
-      <NavItem onClick={() => handleNavigate("1", "/")}>
+      <NavItem onClick={() => handleNavigate("2", "/menu1")}>
         <FaBook color="white" size={25} />
       </NavItem>
       <NavItem onClick={() => handleNavigate("2", "/menu1")} aria-hidden="true">
