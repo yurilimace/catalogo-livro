@@ -50,7 +50,6 @@ export const Navbar = styled.nav<{ active?: string }>`
     padding: 0 4%;
     height: 6%;
     > :last-child {
-      border: 1px solid red;
       width: 12%;
       margin-left: 66%;
     }

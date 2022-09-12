@@ -105,6 +105,7 @@ export const UseTitleCRUD = () => {
   };
 
   const AddTitleToCollection = async (titleId: string) => {
+    setRequestLoading(true);
     const userToken = localStorage.getItem("token");
     if (userToken) {
       const decodeToken = jwtDecode<token>(userToken);

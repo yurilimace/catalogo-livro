@@ -85,6 +85,7 @@ export const AddTitleModal = ({
                   {...register("name")}
                   placeholder="Titulo vol xx"
                   hasErrors={methods.formState.errors.name?.message}
+                  disabled={loading}
                 />
                 {methods.formState.errors.name?.message && (
                   <RequiredFieldWarning
@@ -97,6 +98,7 @@ export const AddTitleModal = ({
                   {...register("author")}
                   placeholder="Autor da obra"
                   hasErrors={methods.formState.errors.author?.message}
+                  disabled={loading}
                 />
                 {methods.formState.errors.author?.message && (
                   <RequiredFieldWarning
@@ -112,6 +114,7 @@ export const AddTitleModal = ({
                   {...register("publisher")}
                   placeholder="Editora"
                   hasErrors={methods.formState.errors.cover}
+                  disabled={loading}
                 >
                   {" "}
                   {PUBLISHEROPTIONS.map((publisher, index) => (
