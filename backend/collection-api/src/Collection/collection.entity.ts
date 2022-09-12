@@ -19,7 +19,7 @@ export class Collection {
   @ManyToOne(() => User, (user) => user.id)
   user: User;
 
-  @ManyToOne(() => Title, (title) => title.id)
+  @ManyToOne(() => Title, (title) => title.id, { onDelete: 'CASCADE' })
   title: Title;
 
   @Column({ nullable: true })

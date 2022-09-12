@@ -124,8 +124,17 @@ export const TitleShowcase = () => {
                   <StyledButton
                     onClick={() => item.id && AddTitleToCollection(item.id)}
                     width={"80%"}
+                    disabled={loadingRequest}
                   >
-                    <FaPlus /> Adicionar Titulo
+                    {loadingRequest ? (
+                      <>
+                        <FaPlus /> ... Adicionando{" "}
+                      </>
+                    ) : (
+                      <>
+                        <FaPlus /> Adicionar Titulo{" "}
+                      </>
+                    )}
                   </StyledButton>
                 </CardFooter>
               </StyledCard>
