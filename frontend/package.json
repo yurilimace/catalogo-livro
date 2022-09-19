@@ -1,7 +1,6 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "homepage": "./",
   "private": true,
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.17.0",
