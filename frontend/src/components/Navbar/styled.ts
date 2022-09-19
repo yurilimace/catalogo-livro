@@ -19,7 +19,7 @@ export const Navbar = styled.nav<{ active?: string }>`
     display: flex;
     align-items: center;
 
-    @media (min-width: 425px) {
+    /* @media (min-width: 425px) {
       margin-left: 11%;
     }
 
@@ -28,10 +28,55 @@ export const Navbar = styled.nav<{ active?: string }>`
     }
 
     @media (min-width: 1024px) {
+      border: 1px solid red;
       margin-left: 56%;
     }
     @media (min-width: 1201px) {
       margin-left: 66%;
+    }
+  } */
+  }
+
+  @media (min-width: 1920px) {
+    padding: 0 4%;
+    > :last-child {
+      border: 1px solid #3d478a;
+      width: 8%;
+      margin-left: 76%;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1919px) {
+    padding: 0 4%;
+    height: 6%;
+    > :last-child {
+      width: 12%;
+      margin-left: 66%;
+    }
+  }
+  @media (max-width: 1023px) and (min-width: 768px) {
+    padding: 0 4%;
+    height: 6%;
+    > :last-child {
+      border: 1px solid yellow;
+      margin-left: 40%;
+      width: 18%;
+    }
+  }
+
+  @media (max-width: 767px) and (min-width: 375px) {
+    height: 6%;
+    padding: 0px;
+
+    > :nth-child(3),
+    > :nth-child(4) {
+      display: none;
+    }
+
+    > :last-child {
+      border: 1px solid blue;
+      width: 30%;
+      margin-left: 35%;
     }
   }
 `;

@@ -8,6 +8,7 @@ import {
 } from "../../../types/Title";
 import { token } from "../../../types/Authenticate";
 import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 export const UseTitleCRUD = () => {
   const titleShowCaseDefaultValue: TitleShowcase = {
@@ -17,6 +18,7 @@ export const UseTitleCRUD = () => {
     publisher: "",
     coverURL: "",
   };
+  const navigate = useNavigate();
   const [titleList, setTitleList] = React.useState<TitleShowcase[]>([]);
   const [selectedTitle, setSelectedTitle] = React.useState<TitleShowcase>(
     titleShowCaseDefaultValue
@@ -105,6 +107,7 @@ export const UseTitleCRUD = () => {
   };
 
   const AddTitleToCollection = async (titleId: string) => {
+    setRequestLoading(true);
     const userToken = localStorage.getItem("token");
     if (userToken) {
       const decodeToken = jwtDecode<token>(userToken);
@@ -120,7 +123,7 @@ export const UseTitleCRUD = () => {
           hideProgressBar: false,
           onClose: () => {
             setRequestLoading(false);
-            GetAllTitles();
+            navigate("/menu1");
           },
         });
       }
