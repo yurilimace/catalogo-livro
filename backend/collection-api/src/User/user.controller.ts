@@ -9,9 +9,11 @@ import {
   Query,
   Param,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateUserDTO } from './dto/create.user.dto';
 import { UserDTO } from './dto/user.dto';
 import { User } from './Interfaces/user.interface';
@@ -28,6 +30,7 @@ export class UserController {
     return 'ola teste route';
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/getAll')
   async getAllUsers(): Promise<User[]> {
     const userList = await this.userService.getAll();
@@ -79,6 +82,7 @@ export class UserController {
 
   @Post('/authenticate')
   async authenticate(@Res() response: Response, @Body() b: CreateUserDTO) {
+    console.log(b);
     const result: UserDTO = await this.userService.authenticateUser(b);
 
     if (!result) {

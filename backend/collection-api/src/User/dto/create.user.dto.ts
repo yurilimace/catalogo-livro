@@ -18,6 +18,6 @@ export class CreateUserDTO {
   password: string;
 
   @Expose()
-  @Transform(({ obj }) => obj.profile.profileName === ProfileEnum.ADMIN)
-  isAdmin?: string;
+  @Transform(({ obj }) => obj.profile.profileName)
+  profileName?: string;
 }

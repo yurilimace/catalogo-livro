@@ -34,6 +34,15 @@ export class UserRepository {
     return queryResult;
   }
 
+  async FindUserByName(userFirstName: string) {
+    const queryResult = await this.userRepository.find({
+      where: { firstName: userFirstName },
+      relations: { profile: true },
+    });
+
+    return queryResult;
+  }
+
   async CheckRegistrationUserEmail(userEmail: string) {
     const findUserEmail = await this.userRepository.count({
       where: { email: userEmail },

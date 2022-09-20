@@ -10,7 +10,7 @@ import { ProfileService } from 'src/Profile/profile.service';
 import { CreateUserDTO } from './dto/create.user.dto';
 import { User } from './user.entity';
 
-import { plainToClass } from 'class-transformer';
+import { plainToClass, plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class UserService {
@@ -33,6 +33,12 @@ export class UserService {
     });
 
     return userDTO;
+  }
+
+  async FindByUserName(userName: string): Promise<User[]> {
+    const user = await this.userRepository.FindUserByName(userName);
+
+    return user;
   }
 
   async Create(userParam: CreateUserDTO): Promise<User> {
