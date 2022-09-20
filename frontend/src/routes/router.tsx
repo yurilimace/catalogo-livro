@@ -51,7 +51,7 @@ export const CustomRouter = () => {
 
   return (
     <BrowserRouter>
-      {userHasToken ? (
+      {userHasToken?.token ? (
         <RoutesWithPageContainer />
       ) : (
         <RoutesWithoutPageContainer />
