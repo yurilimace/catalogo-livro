@@ -17,13 +17,13 @@ export class AuthService {
     const user = await this.userService.FindByUserEmail(firstName);
 
     if (!user[0]) {
-      throw { message: 'Usuário não cadastrado' };
+      throw { errorCode: 404, message: 'Usuário não cadastrado' };
     }
 
     const match = await CompareHash(password, user[0].password);
 
     if (!match) {
-      throw { message: 'Senha informada não confere' };
+      throw { errorCode: 401, message: 'Senha informada não confere' };
     }
 
     return user;
