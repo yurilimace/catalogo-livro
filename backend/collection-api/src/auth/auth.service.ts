@@ -14,7 +14,7 @@ export class AuthService {
   ) {}
 
   async validateUser(firstName: string, password: string) {
-    const user = await this.userService.FindByUserName(firstName);
+    const user = await this.userService.FindByUserEmail(firstName);
 
     if (!user[0]) {
       throw { message: 'Usuário não cadastrado' };
@@ -29,8 +29,8 @@ export class AuthService {
     return user;
   }
 
-  async Login(firstName: string, password: string) {
-    const user = await this.userService.FindByUserName(firstName);
+  async Login(email: string, password: string) {
+    const user = await this.userService.FindByUserEmail(email);
     const userDTO = plainToClass(CreateUserDTO, user[0], {
       excludeExtraneousValues: true,
     });

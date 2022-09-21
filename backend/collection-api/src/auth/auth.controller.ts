@@ -17,7 +17,7 @@ export class AuthController {
   @Post('/login')
   async Login(@Body() b, @Res() response) {
     try {
-      const token = await this.authService.Login(b.firstName, b.password);
+      const token = await this.authService.Login(b.email, b.password);
       return response.status(HttpStatus.OK).json({ token: token });
     } catch (err) {
       return response.status(HttpStatus.BAD_REQUEST).json(err);

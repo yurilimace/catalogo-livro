@@ -35,8 +35,8 @@ export class UserService {
     return userDTO;
   }
 
-  async FindByUserName(userName: string): Promise<User[]> {
-    const user = await this.userRepository.FindUserByName(userName);
+  async FindByUserEmail(userEmail: string): Promise<User[]> {
+    const user = await this.userRepository.FindUserByEmail(userEmail);
 
     return user;
   }

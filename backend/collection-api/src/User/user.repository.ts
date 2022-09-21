@@ -34,9 +34,9 @@ export class UserRepository {
     return queryResult;
   }
 
-  async FindUserByName(userFirstName: string) {
+  async FindUserByEmail(userFirstName: string) {
     const queryResult = await this.userRepository.find({
-      where: { firstName: userFirstName },
+      where: { email: userFirstName },
       relations: { profile: true },
     });
 

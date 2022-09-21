@@ -30,7 +30,7 @@ export class UserController {
     return 'ola teste route';
   }
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Get('/getAll')
   async getAllUsers(): Promise<User[]> {
     const userList = await this.userService.getAll();
