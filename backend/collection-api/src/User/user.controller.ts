@@ -65,6 +65,7 @@ export class UserController {
     return response;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put('/admin/:id')
   async ParseUserToAdmin(@Param('id') id, @Res() response) {
     const userParse = await this.userService.ParseUserToAdmin(id);
@@ -82,7 +83,6 @@ export class UserController {
 
   @Post('/authenticate')
   async authenticate(@Res() response: Response, @Body() b: CreateUserDTO) {
-    console.log(b);
     const result: UserDTO = await this.userService.authenticateUser(b);
 
     if (!result) {
