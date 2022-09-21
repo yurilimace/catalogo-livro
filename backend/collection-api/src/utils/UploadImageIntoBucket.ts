@@ -11,7 +11,11 @@ import { CreateNameUploadFileName } from './CreateNameUploadFile';
 
 export const UploadImageInBucket = async (title: TitleDTO) => {
   const storage = getStorage();
-  const storageRef = ref(storage, `/covers/${title.name}`);
+
+  const storageRef = ref(
+    storage,
+    `/${process.env.DEVELOPMENT_BUCKET}/covers/${title.name}`,
+  );
 
   const metadata = {
     contentType: title.cover.mimetype,
