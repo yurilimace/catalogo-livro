@@ -9,9 +9,11 @@ import {
   Query,
   Param,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateUserDTO } from './dto/create.user.dto';
 import { UserDTO } from './dto/user.dto';
 import { User } from './Interfaces/user.interface';
@@ -28,6 +30,7 @@ export class UserController {
     return 'ola teste route';
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/getAll')
   async getAllUsers(): Promise<User[]> {
     const userList = await this.userService.getAll();
@@ -62,6 +65,7 @@ export class UserController {
     return response;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put('/admin/:id')
   async ParseUserToAdmin(@Param('id') id, @Res() response) {
     const userParse = await this.userService.ParseUserToAdmin(id);

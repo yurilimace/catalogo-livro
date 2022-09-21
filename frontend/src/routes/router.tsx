@@ -44,7 +44,7 @@ export const CustomRouter = () => {
       const decodedToken = jwtDecode<token>(updatedToken);
       setUserHasToken({
         token: updatedToken,
-        profile: decodedToken.data.profile.profileName,
+        profile: decodedToken.data.profileName,
       });
     }
   }, [userHasToken]);
