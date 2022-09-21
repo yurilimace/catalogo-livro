@@ -13,8 +13,14 @@ export const UploadImageRefInBucket = async (
   previousTitle: TitleDTO,
 ) => {
   const storage = getStorage();
-  const storageRef = ref(storage, `/covers/${title.name}`);
-  const previousTitleStorageRef = ref(storage, `/covers/${previousTitle.name}`);
+  const storageRef = ref(
+    storage,
+    `/${process.env.DEVELOPMENT_BUCKET}/covers/${title.name}`,
+  );
+  const previousTitleStorageRef = ref(
+    storage,
+    `/${process.env.DEVELOPMENT_BUCKET}/covers/${previousTitle.name}`,
+  );
 
   const imageBytesfromPreviousImage = await getBytes(previousTitleStorageRef);
   const imageMetadatafromPreviousImage = await getMetadata(

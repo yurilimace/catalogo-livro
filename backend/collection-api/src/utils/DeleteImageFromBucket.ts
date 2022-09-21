@@ -3,7 +3,10 @@ import { TitleDTO } from 'src/Title/DTO/create.title.dto';
 
 export const DeleteImageInBucket = async (titleName: string) => {
   const storage = getStorage();
-  const storageRef = ref(storage, `/covers/${titleName}`);
+  const storageRef = ref(
+    storage,
+    `/${process.env.DEVELOPMENT_BUCKET}/covers/${titleName}`,
+  );
 
   // const convertedImage = ConvertImageBase64ToByteArray(imageBase64);
 
