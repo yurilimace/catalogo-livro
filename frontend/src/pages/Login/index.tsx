@@ -4,39 +4,20 @@ import {
   LoginFormContainer,
   SignupSection,
   SignupRouterButton,
+  LoginFormInput,
 } from "./styled";
 import { FaBookReader } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 
-import { BaseServiceURL } from "../../service/config";
-
-import { useRecoilState } from "recoil";
-import { userAuthenticateState } from "../../store/UserAuthenticate/userAuthenticate.atom";
 import { useNavigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
-import { token } from "../../types/Authenticate";
+
+import { useLoginForm } from "./hooks/useLoginForm";
+import { RequiredFieldWarning } from "../../components/RequiredFieldWarning";
 
 export const Login = () => {
   const navigate = useNavigate();
-  const [userToken, setUserToken] = useRecoilState(userAuthenticateState);
-  const { register, handleSubmit } = useForm();
-
-  const teste = async (data: any) => {
-    const responseData: any = await BaseServiceURL.post(
-      "user/authenticate",
-      data
-    );
-
-    const decodedToken = jwtDecode<token>(responseData.data.token);
-
-    localStorage.setItem("token", responseData.data.token);
-
-    setUserToken({
-      token: responseData.data.token,
-      profile: decodedToken.data.profile.profileName,
-    });
-  };
+  const { register, Submit, errors } = useLoginForm();
 
   return (
     <LoginPageContainer>
@@ -44,26 +25,36 @@ export const Login = () => {
         <FaBookReader size={200} color={"#f6f7fc"} />
       </div>
       <div>
-        <LoginFormContainer onSubmit={handleSubmit(teste)}>
+        <LoginFormContainer onSubmit={Submit}>
           <LoginFormContainer.Group>
-            <LoginFormContainer.Label> Email </LoginFormContainer.Label>
-            <LoginFormContainer.Control
-              placeholder="Enter email"
-              {...register("firstName")}
+            <LoginFormContainer.Label> E-mail </LoginFormContainer.Label>
+            <LoginFormInput
+              {...register("email")}
+              disabled={false}
+              placeholder="Digite o email"
+              hasErrors={errors.email}
             />
+            {errors.email && (
+              <RequiredFieldWarning message={errors.email.message} />
+            )}
           </LoginFormContainer.Group>
 
           <LoginFormContainer.Group>
-            <LoginFormContainer.Label> Password </LoginFormContainer.Label>
-            <LoginFormContainer.Control
-              type="password"
-              placeholder="Enter password"
+            <LoginFormContainer.Label> Senha </LoginFormContainer.Label>
+            <LoginFormInput
               {...register("password")}
+              type="password"
+              disabled={false}
+              placeholder="Digite o Nome"
+              hasErrors={errors.password}
             />
+            {errors.password && (
+              <RequiredFieldWarning message={errors.password?.message} />
+            )}
           </LoginFormContainer.Group>
 
           <Button variant="primary" type="submit">
-            Submit
+            Login
           </Button>
         </LoginFormContainer>
         <SignupSection>

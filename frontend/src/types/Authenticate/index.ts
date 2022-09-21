@@ -13,5 +13,7 @@ export type userInfo = {
   id: string;
   lastName: string;
   password: string;
-  profile: { profileId: string; profileName: string };
+  profileName: string;
 };
+
+export type AuthUserForm = Pick<userInfo, "email" | "password">;
