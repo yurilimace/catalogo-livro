@@ -9,11 +9,13 @@ import {
   Put,
   Query,
   Res,
+  UseGuards,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { response } from 'express';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 import { TitleDTO } from './DTO/create.title.dto';
 import { TitleService } from './title.service';
@@ -39,6 +41,7 @@ export class TitleController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('cover'))
   @Post()
   async SaveTitle(
@@ -61,6 +64,7 @@ export class TitleController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('cover'))
   @Put()
   async UpdateTitle(
@@ -83,6 +87,7 @@ export class TitleController {
     });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async DeleteTitle(@Param() id, @Res() response) {
     const deletedTitle = await this.TitleService.DeleteTitle(id.id);
