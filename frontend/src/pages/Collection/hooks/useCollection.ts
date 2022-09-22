@@ -16,7 +16,7 @@ export const useCollection = () => {
 
   const deleteCollection = async (collectionId: string) => {
     const response = await BaseServiceURL.delete(`/collection/${collectionId}`);
-    console.log(response);
+
     if (response.status == 200) {
       toast.success("Titulo deletado da coleção com sucesso", {
         position: "top-right",

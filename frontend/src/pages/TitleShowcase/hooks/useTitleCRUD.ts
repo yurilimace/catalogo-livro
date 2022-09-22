@@ -6,9 +6,11 @@ import {
   TitleRequestResponse,
   TitleShowcase,
 } from "../../../types/Title";
-import { token } from "../../../types/Authenticate";
+import { AuthUser, token } from "../../../types/Authenticate";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { userAuthenticateState } from "../../../store/UserAuthenticate/userAuthenticate.atom";
+import { RecoilState, useRecoilValue } from "recoil";
 
 export const UseTitleCRUD = () => {
   const titleShowCaseDefaultValue: TitleShowcase = {
@@ -23,6 +25,9 @@ export const UseTitleCRUD = () => {
   const [selectedTitle, setSelectedTitle] = React.useState<TitleShowcase>(
     titleShowCaseDefaultValue
   );
+
+  const userToken = useRecoilValue(userAuthenticateState);
+
   const [requestLoading, setRequestLoading] = React.useState(false);
 
   async function GetAllTitles() {
@@ -33,18 +38,36 @@ export const UseTitleCRUD = () => {
   }
 
   const UpdateTitle = async (data: TitleDTO, dialogController: () => void) => {
-    setRequestLoading(true);
-    const response = await BaseServiceURL.put<TitleRequestResponse>(
-      "title",
-      data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    if (response.status === 200) {
+    try {
+      setRequestLoading(true);
+      const response = await BaseServiceURL.put<TitleRequestResponse>(
+        "title",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${userToken?.token}`,
+          },
+        }
+      );
+
       toast.success(response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        onClose: () => {
+          setRequestLoading(false);
+          ResetSelectedTitleToDefaultValue();
+          dialogController();
+          GetAllTitles();
+        },
+      });
+    } catch (err: any) {
+      const ErrorMessage =
+        err.response.data.message === "Unauthorized"
+          ? "Usuário não possui perfil para fazer a operação, ou acesso expirou"
+          : err.response.data.message;
+      toast.error(ErrorMessage, {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -59,20 +82,39 @@ export const UseTitleCRUD = () => {
   };
 
   const CreateTitle = async (data: TitleDTO, dialogController: () => void) => {
-    setRequestLoading(true);
-    delete data.id;
-    delete data.coverURL;
-    const response = await BaseServiceURL.post<TitleRequestResponse>(
-      "title",
-      data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+    try {
+      setRequestLoading(true);
+      delete data.id;
+      delete data.coverURL;
+      const response = await BaseServiceURL.post<TitleRequestResponse>(
+        "title",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${userToken?.token}`,
+          },
+        }
+      );
+      if (response.status === 201) {
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          onClose: () => {
+            setRequestLoading(false);
+            ResetSelectedTitleToDefaultValue();
+            dialogController();
+            GetAllTitles();
+          },
+        });
       }
-    );
-    if (response.status === 201) {
-      toast.success(response.data.message, {
+    } catch (err: any) {
+      const ErrorMessage =
+        err.response.data.message === "Unauthorized"
+          ? "Usuário não possui perfil para fazer a operação, ou acesso expirou"
+          : err.response.data.message;
+      toast.error(ErrorMessage, {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -87,12 +129,34 @@ export const UseTitleCRUD = () => {
   };
 
   const DeleteTitle = async (dialogController: () => void) => {
-    setRequestLoading(true);
-    const response = await BaseServiceURL.delete<TitleRequestResponse>(
-      `/title/${selectedTitle.id}`
-    );
-    if (response.status === 200) {
+    try {
+      setRequestLoading(true);
+      const response = await BaseServiceURL.delete<TitleRequestResponse>(
+        `/title/${selectedTitle.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken?.token}`,
+          },
+        }
+      );
+
       toast.success(response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        onClose: () => {
+          setRequestLoading(false);
+          ResetSelectedTitleToDefaultValue();
+          dialogController();
+          GetAllTitles();
+        },
+      });
+    } catch (err: any) {
+      const ErrorMessage =
+        err.response.data.message === "Unauthorized"
+          ? "Usuário não possui perfil para fazer a operação, ou acesso expirou"
+          : err.response.data.message;
+      toast.error(ErrorMessage, {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -162,3 +226,6 @@ export const UseTitleCRUD = () => {
     setSelectedTitle: setSelectedTitle,
   };
 };
+function userRecoilValue(userAuthenticateState: RecoilState<AuthUser>) {
+  throw new Error("Function not implemented.");
+}
