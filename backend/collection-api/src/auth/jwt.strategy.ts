@@ -14,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: any) {
     const { data } = payload;
-    if (data.profile.profileName === ProfileEnum.ADMIN) {
+    if (data.profileName === ProfileEnum.ADMIN) {
       return data;
     }
 

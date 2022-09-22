@@ -14,7 +14,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { response } from 'express';
+
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 import { TitleDTO } from './DTO/create.title.dto';
@@ -72,19 +72,22 @@ export class TitleController {
     @UploadedFile() file: Express.Multer.File | null,
     @Res() Response,
   ) {
-    const updateTitle = await this.TitleService.UpdateTitle({
-      ...b,
-      cover: file,
-    });
-    if (updateTitle) {
-      return Response.status(HttpStatus.OK).json({
-        message: 'Titulo Atualizado',
-        title: updateTitle,
+    try {
+      const updateTitle = await this.TitleService.UpdateTitle({
+        ...b,
+        cover: file,
+      });
+      if (updateTitle) {
+        return Response.status(HttpStatus.OK).json({
+          message: 'Titulo Atualizado',
+          title: updateTitle,
+        });
+      }
+    } catch (err) {
+      return Response.status(HttpStatus.BAD_REQUEST).json({
+        message: 'Erro ao Atualizar titulo',
       });
     }
-    return Response.status(HttpStatus.BAD_REQUEST).json({
-      message: 'Erro ao Atualizar titulo',
-    });
   }
 
   @UseGuards(JwtAuthGuard)

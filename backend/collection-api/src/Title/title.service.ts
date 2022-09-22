@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 
 import { DeleteImageInBucket } from 'src/utils/DeleteImageFromBucket';
@@ -31,51 +31,62 @@ export class TitleService {
   }
 
   async SaveTitle(title: TitleDTO): Promise<any> {
-    const hasTitleWithSameName = await this.titleRepository.FindTitleByName(
-      title.name,
-    );
+    try {
+      const hasTitleWithSameName = await this.titleRepository.FindTitleByName(
+        title.name,
+      );
 
-    if (hasTitleWithSameName) {
-      throw { message: 'Já existe um titulo salvo com esse nome' };
+      if (hasTitleWithSameName) {
+        throw { message: 'Já existe um titulo salvo com esse nome' };
+      }
+      const imageURL: string = await UploadImageInBucket(title);
+      const titleWithConvertedImage = this.titleRepository.CreateTitle(
+        title,
+        imageURL,
+      );
+      return await this.titleRepository.SaveTitle(titleWithConvertedImage);
+    } catch (err) {
+      throw new HttpException(
+        'Erro na requisição por favor tente novamente',
+        500,
+      );
     }
-    const imageURL: string = await UploadImageInBucket(title);
-    const titleWithConvertedImage = this.titleRepository.CreateTitle(
-      title,
-      imageURL,
-    );
-    return await this.titleRepository.SaveTitle(titleWithConvertedImage);
   }
 
   async UpdateTitle(title: TitleDTO): Promise<TitleDTO> {
-    const previousTitle = await this.GetTitle(title.id);
-    let newImage = title.coverURL ?? '';
+    try {
+      const previousTitle = await this.GetTitle(title.id);
+      let newImage = title.coverURL ?? '';
 
-    if (title.cover) {
-      newImage = await UploadImageInBucket(title);
+      if (title.cover) {
+        newImage = await UploadImageInBucket(title);
+      }
+      if (previousTitle.name !== title.name && !title.cover) {
+        newImage = await UploadImageRefInBucket(title, previousTitle);
+      }
+
+      if (newImage !== title.coverURL && newImage !== '') {
+        await DeleteImageInBucket(previousTitle.name);
+      }
+
+      const objectWithNewValues = this.titleRepository.CreateTitle(
+        title,
+        newImage,
+      );
+
+      const updatedOperation = await this.titleRepository.Updatetile(
+        objectWithNewValues,
+      );
+
+      const parsedTitleDto = plainToClass(TitleDTO, {
+        ...updatedOperation,
+        coverURL: updatedOperation.cover,
+      });
+
+      return parsedTitleDto;
+    } catch (err) {
+      throw new HttpException('Falha no update,Por favor tente denovo', 500);
     }
-    if (previousTitle.name !== title.name && !title.cover) {
-      newImage = await UploadImageRefInBucket(title, previousTitle);
-    }
-
-    if (newImage !== title.coverURL && newImage !== '') {
-      await DeleteImageInBucket(previousTitle.name);
-    }
-
-    const objectWithNewValues = this.titleRepository.CreateTitle(
-      title,
-      newImage,
-    );
-
-    const updatedOperation = await this.titleRepository.Updatetile(
-      objectWithNewValues,
-    );
-
-    const parsedTitleDto = plainToClass(TitleDTO, {
-      ...updatedOperation,
-      coverURL: updatedOperation.cover,
-    });
-
-    return parsedTitleDto;
   }
 
   async DeleteTitle(id: string): Promise<TitleDTO> {
