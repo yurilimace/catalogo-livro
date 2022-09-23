@@ -55,7 +55,6 @@ export class UserController {
       }
     } catch (err) {
       response.status(HttpStatus.CONFLICT).json(err);
-      console.log(err);
     }
   }
 

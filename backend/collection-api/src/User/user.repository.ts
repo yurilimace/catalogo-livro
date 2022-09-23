@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -21,7 +21,7 @@ export class UserRepository {
       });
       return user;
     } catch (err) {
-      console.log(err);
+      throw new HttpException('usuário não encontrado', 404);
     }
   }
 

@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { createQueryBuilder, Repository } from 'typeorm';
 import { TitleDTO } from './DTO/create.title.dto';
@@ -50,7 +50,7 @@ export class TitleRepository {
       });
       return transaction;
     } catch (err) {
-      console.log(err);
+      throw new HttpException('Erro ao processar a operação', 500);
     }
   }
 

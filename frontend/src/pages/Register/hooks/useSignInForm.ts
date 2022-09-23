@@ -40,13 +40,11 @@ export const UseSignInForm = () => {
         });
       }
     } catch (err: any) {
-      console.log(err);
       toast.error(err.response.data.message, {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         onClose: () => {
-          console.log("disparou");
           setRequestLoading(false);
         },
       });

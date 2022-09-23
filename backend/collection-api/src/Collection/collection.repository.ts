@@ -19,7 +19,7 @@ export class CollectionRepository {
     collection.title = titleId;
 
     collection.rate = '2';
-    console.log(collection);
+
     const createdCollection = await this.collectionRepository.save(collection);
     return createdCollection;
   }

@@ -45,7 +45,7 @@ export class CollectionController {
   @Delete(':id')
   async DeleteCollection(@Param('id') id) {
     const resp = await this.collectionService.DeleteFromUserCollection(id);
-    console.log(resp);
+
     return resp;
   }
 }
