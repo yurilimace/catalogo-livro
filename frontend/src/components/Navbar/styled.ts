@@ -9,62 +9,21 @@ export const Navbar = styled.nav<{ active?: string }>`
   padding: 0 44px;
 
   & > :nth-child(${(props) => props.active}) {
+    display: flex;
+    justify-content: center;
     background-color: #3d478a;
     opacity: 0.8;
   }
 
   & > :last-child {
     background-color: #6d81fe;
-    width: 10%;
+    width: fit-content;
     display: flex;
     align-items: center;
-
-    /* @media (min-width: 425px) {
-      margin-left: 11%;
-    }
-
-    @media (min-width: 768px) {
-      margin-left: 46%;
-    }
-
-    @media (min-width: 1024px) {
-      border: 1px solid red;
-      margin-left: 56%;
-    }
-    @media (min-width: 1201px) {
-      margin-left: 66%;
-    }
-  } */
+    margin-left: auto;
   }
 
-  @media (min-width: 1920px) {
-    padding: 0 4%;
-    > :last-child {
-      border: 1px solid #3d478a;
-      width: 8%;
-      margin-left: 76%;
-    }
-  }
-
-  @media (min-width: 1024px) and (max-width: 1919px) {
-    padding: 0 4%;
-    height: 6%;
-    > :last-child {
-      width: 12%;
-      margin-left: 66%;
-    }
-  }
-  @media (max-width: 1023px) and (min-width: 768px) {
-    padding: 0 4%;
-    height: 6%;
-    > :last-child {
-      border: 1px solid yellow;
-      margin-left: 40%;
-      width: 18%;
-    }
-  }
-
-  @media (max-width: 767px) and (min-width: 375px) {
+  @media (min-width: 320px) and (max-width: 374px) {
     height: 6%;
     padding: 0px;
 
@@ -74,9 +33,79 @@ export const Navbar = styled.nav<{ active?: string }>`
     }
 
     > :last-child {
-      border: 1px solid blue;
-      width: 30%;
-      margin-left: 35%;
+      justify-content: end;
+      margin-left: 22%;
+      width: 44%;
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 375px) and (max-width: 424px) {
+    height: 6%;
+    padding: 0px;
+
+    > :nth-child(3) {
+      display: none;
+    }
+
+    > :last-child {
+      justify-content: end;
+      margin-left: 15%;
+      width: 36%;
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 425px) and (max-width: 767px) {
+    height: 7%;
+    padding: 0px;
+    > :nth-child(3) {
+      display: none;
+    }
+    > :last-child {
+      justify-content: end;
+      margin-left: 34%;
+      width: auto;
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    height: 7%;
+
+    & > :nth-child(${(props) => props.active}) {
+      display: flex;
+      justify-content: center;
+      width: auto;
+      background-color: #3d478a;
+      opacity: 0.8;
+    }
+
+    > :last-child {
+      justify-content: end;
+      margin-left: 40%;
+      width: auto;
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1339px) {
+    padding: 0 6%;
+    height: 6%;
+
+    & > :nth-child(${(props) => props.active}) {
+      display: flex;
+      justify-content: center;
+      width: auto;
+      background-color: #3d478a;
+      opacity: 0.8;
+    }
+
+    > :last-child {
+      justify-content: center;
+      width: 16%;
+      margin-left: 58%;
+      align-items: center;
     }
   }
 `;
@@ -90,5 +119,25 @@ export const NavItem = styled.div<{ isDropdownOpen?: boolean }>`
   &:hover:not(:first-child) {
     background-color: #4161fd;
     opacity: 0.8;
+  }
+
+  @media (min-width: 320px) and (max-width: 374px) {
+    padding: 8px;
+  }
+
+  @media (min-width: 375px) and (max-width: 425px) {
+    padding: 6px;
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    padding: 12px;
+  }
+
+  @media (min-width: 1024px) and (max-width: 1339px) {
+    padding: 8px;
+  }
+
+  @media (min-width: 1440px) {
+    padding: 10px;
   }
 `;
