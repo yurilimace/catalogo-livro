@@ -2,20 +2,21 @@ import styled from "styled-components";
 
 export const Collectionexhibitor = styled.div`
   margin-top: 2rem;
-  width: 95%;
+  width: 90%;
   height: 94%;
-  overflow-y: auto;
 
-  align-self: start;
+  overflow: scroll;
+  align-self: center;
+  background-color: #f6f7fc;
 
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 15px;
     height: 15px;
     right: 10px;
   }
 
   ::-webkit-scrollbar-corner {
-    height: 0;
+    height: 10px;
   }
   ::-webkit-scrollbar-track {
     background-color: transparent;

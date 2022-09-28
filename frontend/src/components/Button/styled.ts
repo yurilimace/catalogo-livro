@@ -34,7 +34,7 @@ export const RoundedButton = styled(Button)<{ bgColor?: string }>`
     }
   }
 
-  @media (min-width: 425px) and (max-width: 767px) {
+  @media (min-width: 425px) {
     width: 22px;
     height: 22px;
     padding: 0px 3px 12.5px;
@@ -58,7 +58,7 @@ export const StyledButton = styled(Button)<{
     width: ${(props) => (props.width ? "90%" : "100%")};
   }
 
-  @media (min-width: 425px) and (max-width: 767px) {
+  @media (min-width: 425px) {
     font-size: 12px;
     width: ${(props) => (props.width ? "90%" : "100%")};
   }

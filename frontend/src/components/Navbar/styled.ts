@@ -6,7 +6,7 @@ export const Navbar = styled.nav<{ active?: string }>`
   color: #fff;
   align-items: center;
   height: 6%;
-  padding: 0 44px;
+  padding: 0 5.5%;
 
   & > :nth-child(${(props) => props.active}) {
     display: flex;
@@ -20,7 +20,7 @@ export const Navbar = styled.nav<{ active?: string }>`
     width: fit-content;
     display: flex;
     align-items: center;
-    margin-left: auto;
+    margin-left: 60%;
   }
 
   @media (min-width: 320px) and (max-width: 374px) {
@@ -64,7 +64,7 @@ export const Navbar = styled.nav<{ active?: string }>`
     }
     > :last-child {
       justify-content: end;
-      margin-left: 24%;
+      margin-left: 40%;
       width: auto;
       align-items: center;
     }
@@ -83,7 +83,7 @@ export const Navbar = styled.nav<{ active?: string }>`
 
     > :last-child {
       justify-content: end;
-      margin-left: 40%;
+      margin-left: 36%;
       width: auto;
       align-items: center;
     }
