@@ -64,7 +64,7 @@ export const Navbar = styled.nav<{ active?: string }>`
     }
     > :last-child {
       justify-content: end;
-      margin-left: 34%;
+      margin-left: 24%;
       width: auto;
       align-items: center;
     }

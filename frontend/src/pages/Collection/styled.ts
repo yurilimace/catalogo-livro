@@ -6,6 +6,8 @@ export const Collectionexhibitor = styled.div`
   height: 94%;
   overflow-y: auto;
 
+  align-self: start;
+
   ::-webkit-scrollbar {
     width: 8px;
     height: 15px;
@@ -22,5 +24,20 @@ export const Collectionexhibitor = styled.div`
   ::-webkit-scrollbar-thumb {
     background-color: #6d81fe;
     border-radius: 25px;
+  }
+
+  @media (min-width: 320px) and (max-width: 374px) {
+    width: 100%;
+    justify-content: start;
+  }
+
+  @media (min-width: 375px) and (max-width: 424px) {
+    width: 100%;
+    justify-content: start;
+  }
+
+  @media (min-width: 425px) and (max-width: 767px) {
+    width: 100%;
+    justify-content: center;
   }
 `;

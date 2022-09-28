@@ -37,4 +37,16 @@ export const ImageContainer = styled.div`
       z-index: 1;
     }
   }
+
+  @media (min-width: 375px) and (max-width: 424px) {
+    height: 220px;
+    width: 100%;
+    position: relative;
+  }
+
+  @media (min-width: 425px) and (max-width: 767px) {
+    height: 240px;
+    width: 100%;
+    position: relative;
+  }
 `;

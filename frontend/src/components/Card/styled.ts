@@ -25,6 +25,22 @@ export const Card = styled.div<{
       display: flex;
     }
   }
+
+  @media (min-width: 375px) and (max-width: 424px) {
+    height: 220px;
+    width: 140px;
+    :hover {
+      height: 300px;
+    }
+  }
+
+  @media (min-width: 425px) and (max-width: 767px) {
+    height: 240px;
+    width: 160px;
+    :hover {
+      height: 310px;
+    }
+  }
 `;
 export const CardTitle = styled.div<{ color?: string }>`
   color: ${(props) => props.color ?? "#000"};
@@ -40,6 +56,12 @@ export const CardBody = styled.div`
 
   h4 {
     font-size: 1.3rem;
+  }
+
+  @media (min-width: 375px) and (max-width: 424px) {
+    span {
+      font-size: 14px;
+    }
   }
 `;
 
