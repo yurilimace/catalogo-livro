@@ -8,9 +8,8 @@ export const Card = styled.div<{
   flex-direction: column;
   width: fit-content;
   align-items: start;
-  height: 304px;
+  height: 220px;
   border-radius: 12px;
-
   background-color: ${(props) => props.backgroundColor ?? "#fff"};
   box-shadow: ${(props) =>
     props.hasBoxShadow && "rgba(0, 0, 0, 0.24) 0px 3px 8px"};
@@ -20,9 +19,25 @@ export const Card = styled.div<{
 
   transition: height 0.2s ease-in;
   :hover {
-    height: 380px;
+    height: 300px;
     > div {
       display: flex;
+    }
+  }
+
+  @media (min-width: 375px) and (max-width: 424px) {
+    height: 220px;
+    width: 140px;
+    :hover {
+      height: 300px;
+    }
+  }
+
+  @media (min-width: 425px) and (max-width: 767px) {
+    height: 240px;
+    width: 160px;
+    :hover {
+      height: 310px;
     }
   }
 `;
@@ -40,6 +55,12 @@ export const CardBody = styled.div`
 
   h4 {
     font-size: 1.3rem;
+  }
+
+  @media (min-width: 375px) and (max-width: 424px) {
+    span {
+      font-size: 14px;
+    }
   }
 `;
 
