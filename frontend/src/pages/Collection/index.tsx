@@ -59,12 +59,13 @@ export const Collection = () => {
               </CardTitle>
               <CardBody>
                 <div>
-                  <h4> {a.title.name} </h4>
+                  <span style={{ fontSize: "14px", padding: "10px" }}>
+                    {a.title.name}
+                  </span>
                 </div>
               </CardBody>
-
               <CardFooter>
-                <div>
+                <div style={{ marginTop: "10px" }}>
                   <h6> Footer Teste </h6>
                 </div>
               </CardFooter>

@@ -14,8 +14,8 @@ export const ImageActions = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-  width: 204px;
-  height: 304px;
+  width: 100%;
+  height: 230px;
   position: relative;
 
   > img {
@@ -36,5 +36,17 @@ export const ImageContainer = styled.div`
       align-items: center;
       z-index: 1;
     }
+  }
+
+  @media (min-width: 375px) and (max-width: 424px) {
+    height: 220px;
+    width: 100%;
+    position: relative;
+  }
+
+  @media (min-width: 425px) and (max-width: 767px) {
+    height: 240px;
+    width: 100%;
+    position: relative;
   }
 `;
