@@ -70,7 +70,7 @@ export const TitleShowcase = () => {
   return (
     <PageContentContainer>
       {userProfile?.profile === "admin" && (
-        <div style={{ alignSelf: "end", marginRight: "5%" }}>
+        <div style={{ alignSelf: "end", padding: "0px 81px" }}>
           <StyledButton onClick={() => setAddModalShowController(true)}>
             <FaPlus /> Adicionar Titulo
           </StyledButton>

@@ -24,8 +24,8 @@ export const CollectionGrid = styled(Grid)`
 
   @media (min-width: 1024px) {
     grid-template-columns: repeat(auto-fit, 162px);
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
   }
   @media (min-width: 1201px) {
     grid-template-columns: repeat(auto-fit, 162px);

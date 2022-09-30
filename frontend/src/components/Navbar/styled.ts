@@ -6,7 +6,7 @@ export const Navbar = styled.nav<{ active?: string }>`
   color: #fff;
   align-items: center;
   height: 6%;
-  padding: 0 5.5%;
+  padding: 0 5.7%;
 
   & > :nth-child(${(props) => props.active}) {
     display: flex;
@@ -63,8 +63,8 @@ export const Navbar = styled.nav<{ active?: string }>`
       display: none;
     }
     > :last-child {
-      justify-content: end;
-      margin-left: 40%;
+      justify-content: baseline;
+      margin-left: auto;
       width: auto;
       align-items: center;
     }
